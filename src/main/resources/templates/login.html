@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2"/>
+    <title>登录</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
+</head>
+
+<body>
+    <h3>LOGIN PAGE</h3><br>
+    <span th:if="${error}">用户名或密码错误</span><br>
+    <form th:action="@{/login}" method="post">
+        <label for="username">用户名：</label>
+        <input id="username" type="text" name="username" /><br>
+        <label for="password">密码：</label>
+        <input id="password" type="password" name="password"><br>
+        <input id="remember" type="checkbox" name="remember">
+        <label for="remember">记住我</label><br>
+        <button type="submit">登录</button>
+    </form>
+</body>
+
+</html>
