@@ -19,9 +19,16 @@ body{
     min-width: 1220px;
     color: #bbbbbb;
 }
+a{
+    text-decoration: none;
+    color: #bbbbbb;
+}
 body, button, table, dd, dl, dt, h1, h2, h3, h4, input, textarea, ul, li, ol, p, select {
     margin: 0;
     padding: 0;
+}
+button{
+    outline: none;
 }
 li{
     list-style: none;
@@ -29,12 +36,170 @@ li{
 
 /* top header */
 .ky-header-nav{
-    font-size: 0;
     height: 50px;
     background-color: #262626;
     box-sizing: border-box;
     width: 100%;
     display: table;
+    color: #bbbbbb;
+}
+.ky-header-nav ul{
+    margin: 0;
+    padding: 0;
+    height: 50px;
+}
+.ky-header-nav li{
+    display: inline-block;
+    height: 50px;
+    vertical-align: top;
+}
+.ky-header-logo{
+    height: 50px;
+    width: 100px;
+    border-right: 1px solid #000000;
+}
+.ky-header-logo img{
+    height: 50px;
+    width: 100px;
+}
+.ky-header-fast-btn,.ky-header-user{
+    height: 50px;
+    line-height: 50px;
+    min-width: 40px;
+    padding: 0 10px;
+    text-align: center;
+    position: relative;
+}
+.ky-header-fast-btn i{
+    margin-left: 5px;
+}
+.ky-header-fun{
+    position: absolute;
+    top: 50px;
+    left: 0;
+    min-height: 200px;
+    width: 800px;
+    background-color: #000000;
+    z-index: 10;
+    overflow-y: auto;
+    display: none;
+    padding: 20px 40px;
+}
+.ky-header-fun-search{
+    width: 60%;
+    position: relative;
+}
+.ky-header-fun-search input{
+    box-sizing: border-box;
+    width: 100%;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #888;
+    background-color: #1a1a1a;
+    outline: 0;
+    color: #fff;
+    padding-left: 10px;
+    padding-right: 34px;
+}
+.ky-header-fun-search button{
+    position: absolute;
+    background-color: #1a1a1a;
+    width: 34px;
+    height: 26px;
+    top: 12px;
+    right: 1px;
+    outline: 0;
+    cursor: pointer;
+    border: none;
+    font-size: 18px;
+    color: #bbbbbb;
+}
+.ky-header-fast-btn:hover .ky-header-fun{
+    display: block;
+}
+.ky-header-user{
+    float: right;
+}
+.ky-header-user i{
+    font-size: 14px;
+}
+.ky-header-user span{
+    font-size: 12px;
+    margin-left: 5px;
+}
+.ky-header-user .ky-header-user-logo{
+    font-size: 20px;
+}
+.ky-header-user ul{
+    height: auto;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    z-index: 10;
+    width: 160px;
+    background-color: #000000;
+    display: none;
+    transition: all .3s;
+    font-size: 12px;
+}
+.ky-header-user li{
+    display: block;
+    text-align: left;
+}
+.ky-header-user li.ky-header-user-li1{
+    height: 38px !important;
+}
+.ky-header-user li.ky-header-user-li2{
+    height: 50px !important;
+    border-top: 1px solid #333333;
+    margin-top: 10px;
+}
+.ky-header-user li.ky-header-user-li2 button{
+    outline: none;
+    background-color: #000000;
+    color: #bbbbbb;
+    margin-left: 20px;
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+}
+.ky-header-user li.ky-header-user-li2 button:hover{
+    background-color: #333333;
+}
+.ky-header-user li.ky-header-user-li2 button:active,.ky-header-user li.ky-header-user-li2 button:hover{
+    outline: none;
+}
+.ky-header-user li a{
+    display: block;
+}
+.ky-header-user li a i{
+    margin-left: 20px;
+}
+.ky-header-user li a:hover span{
+    color: #006eff;
+}
+.ky-header-fast-btn a:hover{
+    color: #006eff;
+}
+.ky-header-user:hover .ky-header-user-logo,.ky-header-user:hover #username{
+    color: #006eff;
+}
+.ky-header-user:hover ul{
+    display: block;
+}
+.ky-header-fast-btn a,.ky-header-tool a{
+    display: block;
+}
+.ky-header-tool{
+    float: right;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+}
+.ky-header-tool:hover{
+    background-color: #444444;
 }
 
 /* sidebar */
@@ -45,6 +210,9 @@ li{
     height: 100%;
     vertical-align: top;
     background-color: #333333;
+    overflow-x: hidden;
+    transition: width .3s;
+    z-index: 8;
 }
 .ky-sidebar .ky-sidebar-headline{
     line-height: 50px;
@@ -55,6 +223,9 @@ li{
     /*border-bottom: 1px solid #2b2b2b;*/
     padding: 0 20px 0 24px;
 }
+.ky-sidebar .ky-sidebar-headline i{
+    font-size: 20px;
+}
 .ky-sidebar-hold{
     line-height: 50px;
     height: 50px;
@@ -63,7 +234,7 @@ li{
     position: absolute;
     overflow: hidden;
     border-right: none;
-    z-index: 100;
+    z-index: 8;
     bottom: 50px;
     left: 0;
     right: 0;
@@ -80,7 +251,7 @@ li{
     left: 20px;
     top: 18px;
     font-size: 18px;
-    margin-left: 20px;
+    margin-left: 10px;
     cursor: pointer;
 }
 .ky-sidebar-hold i:hover{
@@ -95,6 +266,7 @@ li{
     bottom: 50px;
     padding-top: 10px;
     margin-bottom: 52px;
+    overflow-x: hidden;
 }
 .ky-sidebar-menu > li{
     position: relative;
@@ -103,6 +275,10 @@ li{
     outline: 0;
     height: 38px;
     line-height: 38px;
+    overflow-x: hidden;
+}
+.ky-sidebar-menu-span-active,.ky-sidebar-menu-i-active{
+    display: none !important;
 }
 .ky-sidebar-menu > li:hover{
     background-color: #444444;
@@ -114,19 +290,20 @@ li{
     color: #bbbbbb;
 }
 .ky-sidebar-menu a i{
-    margin-left: 20px;
+    margin-left: 26px;
     font-size: 18px;
 }
 .ky-sidebar-menu a span{
     margin-left: 10px;
 }
-.ky-sidebar-menu::-webkit-scrollbar {
+/* 菜单栏的滚动，功能块的滚动 */
+.ky-sidebar-menu::-webkit-scrollbar, .ky-header-fun::-webkit-scrollbar {
     width: 17px;
     height: 17px;
     background-color: transparent;
     border-radius: 9px;
 }
-.ky-sidebar-menu::-webkit-scrollbar-thumb {
+.ky-sidebar-menu::-webkit-scrollbar-thumb, .ky-header-fun::-webkit-scrollbar-thumb {
     background-color: #262626;
     border-radius: 9px;
     background-clip: content-box;
@@ -143,6 +320,7 @@ li{
     background-color: #f2f2f2;
     overflow-y: auto;
     overflow-x: hidden;
+    transition: all .3s;
 }
 .ky-container-header{
     height: 50px;
