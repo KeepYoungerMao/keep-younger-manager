@@ -1,5 +1,7 @@
 package com.mao.config;
 
+import com.mao.service.security.DefaultAuthenticationSuccessHandler;
+import com.mao.service.security.DefaultLogoutSuccessHandler;
 import com.mao.service.security.SecurityUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,13 +23,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private SecurityUserDetailService securityUserDetailService;
+    private DefaultAuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
+    private DefaultLogoutSuccessHandler defaultLogoutSuccessHandler;
+
     @Autowired
     public void setSecurityUserDetailService(SecurityUserDetailService securityUserDetailService){
         this.securityUserDetailService = securityUserDetailService;
     }
+    @Autowired
+    public void setDefaultAuthenticationSuccessHandler(DefaultAuthenticationSuccessHandler handler){
+        this.defaultAuthenticationSuccessHandler = handler;
+    }
+    @Autowired
+    public void setDefaultLogoutSuccessHandler(DefaultLogoutSuccessHandler handler){
+        this.defaultLogoutSuccessHandler = handler;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
+        //BCrypt强哈希方法
         return new BCryptPasswordEncoder();
     }
 
@@ -61,7 +75,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login-error")
-                .defaultSuccessUrl("/",true)
+                //.defaultSuccessUrl("/",true)
+                .successHandler(defaultAuthenticationSuccessHandler)
+                .and()
+                .logout()
+                .logoutSuccessHandler(defaultLogoutSuccessHandler)
                 .and()
                 .rememberMe()
                 .rememberMeParameter("remember");

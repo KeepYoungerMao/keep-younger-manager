@@ -2,6 +2,7 @@ package com.mao.entity.sys;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
  */
 @Getter
 @Setter
+@ToString
 public class Permission implements GrantedAuthority {
     private Long id;
     private String name;

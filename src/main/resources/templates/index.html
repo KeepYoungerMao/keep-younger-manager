@@ -65,7 +65,7 @@
                         </a>
                     </li>
                     <li class="ky-header-user-li2">
-                        <form action="/logout" method="post">
+                        <form th:action="@{/logout}" method="post">
                             <button type="submit">退出</button>
                         </form>
                     </li>
@@ -74,18 +74,20 @@
         </ul>
     </div>
     <div class="ky-sidebar">
-        <h2 class="ky-sidebar-headline">
-            <span>用户管理</span>
-            <i class="fa fa-user-o ky-sidebar-menu-i-active"></i>
-        </h2>
-        <ul class="ky-sidebar-menu">
-            <li>
-                <a href="#"><i class="fa fa-user"></i><span>用户管理</span></a>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-user"></i><span>用户管理</span></a>
-            </li>
-        </ul>
+        <div class="ky-sidebar-top">
+            <h2 class="ky-sidebar-headline">
+                <span>用户管理</span>
+                <i class="fa fa-user-o ky-sidebar-menu-i-active"></i>
+            </h2>
+            <ul class="ky-sidebar-menu">
+                <li>
+                    <a href="#"><i class="fa fa-user"></i><span>用户管理</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-user"></i><span>用户管理</span></a>
+                </li>
+            </ul>
+        </div>
         <div class="ky-sidebar-hold">
             <i class="fa fa-outdent" data-type="on"></i>
         </div>

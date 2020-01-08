@@ -275,7 +275,7 @@ li{
     outline: 0;
     height: 38px;
     line-height: 38px;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 .ky-sidebar-menu-span-active,.ky-sidebar-menu-i-active{
     display: none !important;

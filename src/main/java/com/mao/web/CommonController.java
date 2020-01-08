@@ -1,5 +1,6 @@
 package com.mao.web;
 
+import com.mao.service.aop.LogAop;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ public class CommonController implements ErrorController {
 
     private static final String ERROR = "error";
 
+    @LogAop
     @GetMapping({"","index"})
     public String index(){
         return "index";
