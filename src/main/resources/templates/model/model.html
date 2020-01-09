@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2"/>
+    <title>模板文件</title>
+</head>
+<body>
+<div class="ky-header-nav" th:fragment="header">
+    <ul>
+        <li class="ky-header-logo">
+            <a href="/"><img th:src="@{/static/img/keep_younger.png}" alt="KeepYounger"></a>
+        </li>
+        <li class="ky-header-fast-btn"><a href="/"><span>总览</span></a></li>
+        <li class="ky-header-fast-btn">
+            <a href="/"><span>所有功能</span><i class="fa fa-caret-down"></i></a>
+            <div class="ky-header-fun">
+                <div class="ky-header-fun-main">
+                    <div class="ky-header-fun-search">
+                        <input type="text" placeholder="通过名称/关键字查找功能">
+                        <button type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div class="ky-header-fun-all">
+                        <!-- todo -->
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="ky-header-tool"><a href="/"><i class="fa fa-question-circle-o"></i></a></li>
+        <li class="ky-header-tool"><a href="/"><i class="fa fa-clock-o"></i></a></li>
+        <li class="ky-header-tool"><a href="/"><i class="fa fa-envelope-o"></i></a></li>
+        <li class="ky-header-user">
+            <i class="fa fa-user-o ky-header-user-logo"></i>
+            <span id="username">星期六的晚上</span>
+            <i class="fa fa-caret-down"></i>
+            <ul>
+                <li class="ky-header-user-li1">
+                    <a href="/">
+                        <i class="fa fa-user-o"></i>
+                        <span>账号信息</span>
+                    </a>
+                </li>
+                <li class="ky-header-user-li1">
+                    <a href="/">
+                        <i class="fa fa-id-card-o"></i>
+                        <span>个人设置</span>
+                    </a>
+                </li>
+                <li class="ky-header-user-li1">
+                    <a href="/">
+                        <i class="fa fa-money"></i>
+                        <span>资金管理</span>
+                    </a>
+                </li>
+                <li class="ky-header-user-li1">
+                    <a href="/">
+                        <i class="fa fa-diamond"></i>
+                        <span>访问管理</span>
+                    </a>
+                </li>
+                <li class="ky-header-user-li2">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">退出</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="ky-sidebar" th:fragment="sidebar">
+    <div class="ky-sidebar-top">
+        <h2 class="ky-sidebar-headline">
+            <span>用户管理</span>
+            <i class="fa fa-user-o ky-sidebar-menu-i-active"></i>
+        </h2>
+        <ul class="ky-sidebar-menu">
+            <li>
+                <a href="#"><i class="fa fa-user"></i><span>用户管理</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-user"></i><span>用户管理</span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="ky-sidebar-hold">
+        <i class="fa fa-outdent" data-type="on"></i>
+    </div>
+</div>
+</body>
+</html>

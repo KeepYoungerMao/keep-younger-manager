@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2"/>
-    <title></title>
-    <link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
+    <title>古籍管理</title>
     <link rel="stylesheet" th:href="@{/static/css/global-keep-younger.ui.css}">
     <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
-<script th:inline="javascript">
-    var menu = [[${menu}]];
-</script>
 <body>
     <div th:replace="model/model::header"></div>
     <div th:replace="model/model::sidebar"></div>
     <div class="ky-container">
-        <div class="ky-container-header">
-            <span>欢迎使用KeepYounger后台管理系统</span>
-        </div>
+        <div class="ky-container-header"></div>
         <div class="ky-main">
-            <h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1>
-            <h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1>
+            <h1>古籍管理</h1>
         </div>
     </div>
 </body>

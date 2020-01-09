@@ -1,5 +1,7 @@
 package com.mao.util;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.util.Collection;
 
 /**
@@ -38,6 +40,12 @@ public class SU {
      */
     public static boolean isNotEmpty(Collection<?> collection){
         return null != collection && collection.size() > 0;
+    }
+
+    public static void main(String[] args) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("admin"));
+        System.out.println(encoder.encode("123456"));
     }
 
 }

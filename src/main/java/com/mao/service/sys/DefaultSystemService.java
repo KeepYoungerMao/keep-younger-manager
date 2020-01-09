@@ -1,5 +1,7 @@
 package com.mao.service.sys;
 
+import com.mao.config.Cache;
+import com.mao.entity.sys.Menu;
 import com.mao.entity.sys.Permission;
 import com.mao.entity.sys.User;
 import com.mao.mapper.sys.RolePermissionMapper;
@@ -46,6 +48,16 @@ public class DefaultSystemService implements SystemService {
             }
         }
         return null;
+    }
+
+    /**
+     * 获取所有菜单数据
+     * 返回缓存的菜单数据
+     * @return 菜单列表
+     */
+    @Override
+    public List<Menu> getAllMenu() {
+        return Cache.MENU;
     }
 
 }

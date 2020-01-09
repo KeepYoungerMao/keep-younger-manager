@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * 用户表
+ * 用于认证
  * @author mao by 14:35 2020/1/6
  */
 @Getter
@@ -25,18 +26,6 @@ public class User implements UserDetails {
     private Boolean locked;
     private Boolean expired;
     private Boolean enabled;
-    private Long role_id;
-    private Long role_name;
-    private String company;
-    private String dept;
-    private String note;
-    private String image;
-    private String idcard;
-    private String address;
-    private String qq;
-    private String wx;
-    private String phone;
-    private String email;
 
     private List<Permission> permissions;
 

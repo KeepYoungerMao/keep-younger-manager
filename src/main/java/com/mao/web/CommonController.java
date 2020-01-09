@@ -1,6 +1,8 @@
 package com.mao.web;
 
 import com.mao.service.aop.LogAop;
+import com.mao.service.sys.SystemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +17,17 @@ public class CommonController implements ErrorController {
 
     private static final String ERROR = "error";
 
+    private SystemService systemService;
+
+    @Autowired
+    public void setSystemService(SystemService systemService){
+        this.systemService = systemService;
+    }
+
     @LogAop
     @GetMapping({"","index"})
-    public String index(){
+    public String index(Model model){
+        model.addAttribute("menu",systemService.getAllMenu());
         return "index";
     }
 
