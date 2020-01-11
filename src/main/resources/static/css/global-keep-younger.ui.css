@@ -33,6 +33,63 @@ button{
 li{
     list-style: none;
 }
+input::-webkit-input-placeholder {
+    color: #aaaaaa;
+}
+input::-ms-input-placeholder {
+    color: #aaaaaa;
+}
+
+
+/* some span-icon button icon */
+span.ky-icon-green,span.ky-icon-red,span.ky-icon-gray,span.ky-icon-orange{
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #ffffff !important;
+    margin: 0 4px;
+}
+span.ky-icon-green{
+    background-color: #288930;
+}
+span.ky-icon-red{
+    background-color: #da5d2c;
+}
+span.ky-icon-orange{
+    background-color: #be7b00;
+}
+span.ky-icon-gray{
+    background-color: #808080;
+}
+a.ky-icon-green,a.ky-icon-red,a.ky-icon-gray,a.ky-icon-orange{
+    padding: 4px 6px;
+    color: #ffffff !important;
+    margin: 0 4px;
+}
+a.ky-icon-green{
+    background-color: #288930;
+}
+a.ky-icon-green:hover{
+    background-color: #2e9c37;
+}
+a.ky-icon-red{
+    background-color: #da5d2c;
+}
+a.ky-icon-red:hover{
+    background-color: #ed6530;
+}
+a.ky-icon-orange{
+    background-color: #be7b00;
+}
+a.ky-icon-orange:hover{
+    background-color: #d68b00;
+}
+a.ky-icon-gray{
+    background-color: #808080;
+}
+a.ky-icon-gray:hover{
+    background-color: #919191;
+}
+
 
 /* top header */
 .ky-header-nav{
@@ -332,4 +389,41 @@ li{
 }
 .ky-main{
     padding: 10px;
+}
+.ky-main-search-box{
+    margin: 15px 0;
+    display: flex !important;
+}
+.ky-main-search-item{
+    width: 240px;
+    height: 34px;
+    padding: 3px 10px;
+}
+.ky-main-search-item input, .ky-main-search-item select{
+    width: 210px;
+    height: 28px;
+    padding-left: 5px;
+}
+.ky-data-table{
+    margin: 15px 0;
+    border: 1px solid #999999;
+    width: 100%;
+    color: #333333;
+}
+.ky-data-table tr{
+    border-bottom: 1px solid #999999;
+}
+.ky-data-table th{
+    background-color: #c0daee;
+    text-align: left;
+}
+.ky-data-table td,.ky-data-table th{
+    height: 30px;
+    padding-left: 5px;
+}
+.ky-data-table .ky-data-tr-one{
+    background-color: #ffffff;
+}
+.ky-data-table .ky-data-tr-two{
+    background-color: #efefef;
 }

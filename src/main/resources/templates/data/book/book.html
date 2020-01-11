@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2"/>
     <title>古籍管理</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
     <link rel="stylesheet" th:href="@{/static/css/global-keep-younger.ui.css}">
     <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
@@ -11,9 +12,66 @@
     <div th:replace="model/model::header"></div>
     <div th:replace="model/model::sidebar"></div>
     <div class="ky-container">
-        <div class="ky-container-header"></div>
+        <div class="ky-container-header">
+            <span>古籍管理</span>
+        </div>
         <div class="ky-main">
-            <h1>古籍管理</h1>
+            <div class="ky-main-search-box">
+                <div class="ky-main-search-item"><input id="bookName" type="text" placeholder="古籍名称"></div>
+                <div class="ky-main-search-item"><input id="bookAuth" type="text" placeholder="古籍作者"></div>
+                <div class="ky-main-search-item"><input id="bookType" type="text" placeholder="古籍类型"></div>
+                <div class="ky-main-search-item"><input id="bookDynasty" type="text" placeholder="古籍朝代"></div>
+            </div>
+            <table class="ky-data-table" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th width="14%">序号</th>
+                    <th width="15%">名称</th>
+                    <th width="15%">作者</th>
+                    <th width="10%">类型</th>
+                    <th width="10%">朝代</th>
+                    <th width="18%">状态</th>
+                    <th width="18%">操作</th>
+                </tr>
+                <tr class="ky-data-tr-one">
+                    <td>4130954854400</td>
+                    <td>一枕奇</td>
+                    <td>华阳散人</td>
+                    <td>传记</td>
+                    <td>明朝</td>
+                    <td><span class="ky-icon-green">免费</span><span class="ky-icon-red">下架</span></td>
+                    <td>
+                        <a class="ky-icon-green" href="#">详情</a>
+                        <a class="ky-icon-orange" href="#">上架</a>
+                        <a class="ky-icon-red" href="#">删除</a>
+                    </td>
+                </tr>
+                <tr class="ky-data-tr-two">
+                    <td>4130954854400</td>
+                    <td>一枕奇</td>
+                    <td>华阳散人</td>
+                    <td>传记</td>
+                    <td>明朝</td>
+                    <td><span class="ky-icon-green">免费</span><span class="ky-icon-red">下架</span></td>
+                    <td>
+                        <a class="ky-icon-green" href="#">详情</a>
+                        <a class="ky-icon-orange" href="#">上架</a>
+                        <a class="ky-icon-red" href="#">删除</a>
+                    </td>
+                </tr>
+                <tr class="ky-data-tr-one">
+                    <td>4130954854400</td>
+                    <td>一枕奇</td>
+                    <td>华阳散人</td>
+                    <td>传记</td>
+                    <td>明朝</td>
+                    <td><span class="ky-icon-green">免费</span><span class="ky-icon-red">下架</span></td>
+                    <td>
+                        <a class="ky-icon-green" href="#">详情</a>
+                        <a class="ky-icon-orange" href="#">上架</a>
+                        <a class="ky-icon-red" href="#">删除</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.TestMapper">
+
+    <select id="getIds" resultType="java.lang.Integer">
+        select `id` from tt_chapter
+    </select>
+
+    <update id="updateId">
+        update tt_chapter set `id2` = #{id2} where `id` = #{id}
+    </update>
+
+</mapper>

@@ -99,3 +99,32 @@ function UILoad() {
         }
     });
 }
+
+
+/**
+ * js 动态创建表单进行表单提交
+ * @param url 请求地址
+ * @param params 参数
+ * @param target 是否另起窗口
+ */
+function ky_post_submit(url, params, target) {
+    var form = document.createElement("form");
+    form.action = url;
+    form.method = "post";
+    form.style.display="none";
+    if(target) {
+        form.target = target;
+    }
+    for (var x in params) {
+        var opt = document.createElement("input");
+        opt.name = x;
+        opt.value = params[x];
+        form.appendChild(opt);
+    }
+    var btn = document.createElement("input");
+    btn.type = "submit";
+    form.appendChild(btn);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
