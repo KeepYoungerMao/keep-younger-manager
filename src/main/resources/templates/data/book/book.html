@@ -13,7 +13,14 @@
     <div th:replace="model/model::sidebar"></div>
     <div class="ky-container">
         <div class="ky-container-header">
-            <span>古籍管理</span>
+            <span class="ky-container-header-nav">
+                <a class="ky-container-header-nav-back" th:href="@{/data}"><i class="fa fa-chevron-left"></i></a>
+                <a th:href="@{/}">首页</a>
+                <span> / </span>
+                <a th:href="@{/data}">数据管理</a>
+                <span> / </span>
+                <a th:href="@{/data/book}">古籍管理</a>
+            </span>
         </div>
         <div class="ky-main">
             <div class="ky-main-search-box">

@@ -18,8 +18,48 @@ window.onresize = function () {
 * init function
 */
 $(function () {
-    UILoad();
+    //菜单加载
+    loadMenu();
 });
+
+/**
+ * 菜单加载
+ */
+function loadMenu() {
+    var menuJson = sessionStorage.getItem("menu");
+    if (null != menuJson) {
+        var currentMenu = window.location.pathname;
+        var menu = JSON.parse(menuJson);
+        var id = 0,pid = 0,has = false;
+        for (var i = 0; i < menu.length; i++) {
+            if (menu[i].url === currentMenu) {
+                id = menu[i].id;
+                pid = menu[i].pid;
+                has = true;
+                break;
+            }
+        }
+        if (has) {
+            var title = '';
+            var menuList = '';
+            for (var j = 0; j < menu.length; j++) {
+                if (menu[j].id === pid) {
+                    title += '<span>'+menu[j].name+'</span><i class="fa fa-'+menu[j].icon+' ky-sidebar-menu-i-active"></i>';
+                }
+                if (menu[j].pid === pid) {
+                    if (menu[j].id === id)
+                        menuList += '<li class="ky-sidebar-menu-active"><a href="'+menu[j].url+'"><i class="fa fa-'+menu[j].icon+'"></i><span>'+menu[j].name+'</span></a></li>';
+                    else
+                        menuList += '<li><a href="'+menu[j].url+'"><i class="fa fa-'+menu[j].icon+'"></i><span>'+menu[j].name+'</span></a></li>';
+                }
+            }
+            $(".ky-sidebar-headline").append(title);
+            $(".ky-sidebar-menu").append(menuList);
+        }
+    }
+    //执行菜单动画响应操作
+    UILoad();
+}
 
 /**
  * 画面需要执行的一些操作

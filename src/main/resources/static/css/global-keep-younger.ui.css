@@ -337,7 +337,7 @@ a.ky-icon-gray:hover{
 .ky-sidebar-menu-span-active,.ky-sidebar-menu-i-active{
     display: none !important;
 }
-.ky-sidebar-menu > li:hover{
+.ky-sidebar-menu > li:hover,.ky-sidebar-menu > li.ky-sidebar-menu-active{
     background-color: #444444;
 }
 .ky-sidebar-menu a{
@@ -386,6 +386,28 @@ a.ky-icon-gray:hover{
     padding: 0 20px;
     border-bottom: 1px solid #d3d3d3;
     background-color: #ffffff;
+}
+.ky-container-header-nav span{
+    font-size: 16px;
+    color: #888888;
+    font-weight: 600;
+}
+.ky-container-header-nav a{
+    font-size: 14px;
+    color: #333333;
+    font-weight: 600;
+}
+.ky-container-header-nav a:hover{
+    color: #006eff;
+}
+.ky-container-header-nav .ky-container-header-nav-back{
+    margin-right: 5px;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+.ky-container-header-nav .ky-container-header-nav-back:hover{
+    background-color: #006eff;
+    color: #ffffff;
 }
 .ky-main{
     padding: 10px;

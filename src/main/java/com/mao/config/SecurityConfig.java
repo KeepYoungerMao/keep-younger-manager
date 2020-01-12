@@ -5,8 +5,8 @@ import com.mao.service.security.DefaultLogoutSuccessHandler;
 import com.mao.service.security.SecurityUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author mao by 14:13 2020/1/6
  */
 @EnableWebSecurity
-@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private SecurityUserDetailService securityUserDetailService;
@@ -88,10 +88,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 资源配置
      * @param web web
-     * @throws Exception e
      */
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
                 .mvcMatchers("/static/**");
     }

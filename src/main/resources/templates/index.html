@@ -10,13 +10,17 @@
 </head>
 <script th:inline="javascript">
     var menu = [[${menu}]];
+    console.log(menu);
+    sessionStorage.setItem("menu",JSON.stringify(menu));
 </script>
 <body>
     <div th:replace="model/model::header"></div>
     <div th:replace="model/model::sidebar"></div>
     <div class="ky-container">
         <div class="ky-container-header">
-            <span>欢迎使用KeepYounger后台管理系统</span>
+            <span class="ky-container-header-nav">
+                <a th:href="@{/}">首页</a>
+            </span>
         </div>
         <div class="ky-main">
             <h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1><h1>HELLO WORLD</h1>

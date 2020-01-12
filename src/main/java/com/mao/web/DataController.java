@@ -1,6 +1,7 @@
 package com.mao.web;
 
 import com.mao.entity.data.book.BookParam;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("data")
 public class DataController {
 
+    //@LogAop
+    //@PreAuthorize("hasAnyAuthority('data_book')")
     @GetMapping("book")
     public String book(){
         return "data/book/book";
     }
 
+    @PreAuthorize("hasAnyAuthority('data_book')")
     @PostMapping("book")
     public String searchBook(@RequestBody BookParam bookParam){
         return "data/book/book";

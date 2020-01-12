@@ -9,9 +9,9 @@
 <div class="ky-header-nav" th:fragment="header">
     <ul>
         <li class="ky-header-logo">
-            <a href="/"><img th:src="@{/static/img/keep_younger.png}" alt="KeepYounger"></a>
+            <a href="/"><img th:src="@{/static/img/keep_younger.png}" alt="KeepYounger" title="KeepYounger"></a>
         </li>
-        <li class="ky-header-fast-btn"><a href="/"><span>总览</span></a></li>
+        <li class="ky-header-fast-btn"><a href="/" title="总览"><span>总览</span></a></li>
         <li class="ky-header-fast-btn">
             <a href="/"><span>所有功能</span><i class="fa fa-caret-down"></i></a>
             <div class="ky-header-fun">
@@ -70,16 +70,10 @@
 <div class="ky-sidebar" th:fragment="sidebar">
     <div class="ky-sidebar-top">
         <h2 class="ky-sidebar-headline">
-            <span>用户管理</span>
-            <i class="fa fa-user-o ky-sidebar-menu-i-active"></i>
+            <!--<span>用户管理</span><i class="fa fa-user-o ky-sidebar-menu-i-active"></i>-->
         </h2>
         <ul class="ky-sidebar-menu">
-            <li>
-                <a href="#"><i class="fa fa-user"></i><span>用户管理</span></a>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-user"></i><span>用户管理</span></a>
-            </li>
+            <!--<li><a href="#"><i class="fa fa-user"></i><span>用户管理</span></a></li>-->
         </ul>
     </div>
     <div class="ky-sidebar-hold">
