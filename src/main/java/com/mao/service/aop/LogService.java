@@ -1,9 +1,11 @@
 package com.mao.service.aop;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,14 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class LogService {
 
+    private static final Logger log = LoggerFactory.getLogger(LogService.class);
+
     @Pointcut("@annotation(LogAop)")
     public void cut(){}
 
-    @Around("cut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        Object proceed = joinPoint.proceed();
-        System.out.println(proceed);
-        return proceed;
+    @AfterReturning("cut()")
+    public void afterSuccess(JoinPoint joinPoint){
+        log.info("{} after success", joinPoint);
     }
 
 }

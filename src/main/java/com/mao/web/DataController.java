@@ -1,6 +1,7 @@
 package com.mao.web;
 
 import com.mao.entity.data.book.BookParam;
+import com.mao.service.aop.LogAop;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("data")
 public class DataController {
 
-    //@LogAop
+    @LogAop
     //@PreAuthorize("hasAnyAuthority('data_book')")
     @GetMapping("book")
     public String book(){
