@@ -35,17 +35,21 @@ public class DefaultSystemService implements SystemService {
      * 根据登录名查询用户信息
      * 此方法仅查询认证信息。用于认证服务
      * @param username 用户名
+     * @param needAuthority 是否需要请求权限数据
      * @return User
      */
     @Override
-    public User getUserByUsername(String username) {
+    public User getUserByUsername(String username, boolean needAuthority) {
         User user = userMapper.getUserByUsername(username);
         if (null != user){
-            List<Permission> permissions = rolePermissionMapper.getPermissionByUsername(username);
-            if (SU.isNotEmpty(permissions)){
-                user.setPermissions(permissions);
-                return user;
+            if (needAuthority){
+                List<Permission> permissions = rolePermissionMapper.getPermissionByUsername(username);
+                if (SU.isNotEmpty(permissions)){
+                    user.setPermissions(permissions);
+                    return user;
+                }
             }
+            return user;
         }
         return null;
     }

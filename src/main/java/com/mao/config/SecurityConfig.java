@@ -104,7 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
-                .mvcMatchers("/static/**");
+                .mvcMatchers("/static/**","/favicon.ico");
     }
 
 }

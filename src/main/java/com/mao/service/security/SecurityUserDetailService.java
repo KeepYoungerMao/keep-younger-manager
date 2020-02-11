@@ -23,7 +23,7 @@ public class SecurityUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = systemService.getUserByUsername(username);
+        User user = systemService.getUserByUsername(username,true);
         if (null == user) throw new UsernameNotFoundException("cannot load message by this username");
         return user;
     }

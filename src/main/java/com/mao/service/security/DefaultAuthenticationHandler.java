@@ -1,6 +1,7 @@
 package com.mao.service.security;
 
-import com.mao.util.HttpUtil;
+import com.mao.service.log.LogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,13 @@ import java.util.Collection;
 @Service("DefaultAuthenticationHandler")
 public class DefaultAuthenticationHandler {
 
+    private LogService logService;
+
+    @Autowired
+    public void setLogService(LogService logService){
+        this.logService = logService;
+    }
+
     private AntPathMatcher antPathMatcher;
 
     /**
@@ -32,18 +40,16 @@ public class DefaultAuthenticationHandler {
      */
     public boolean hasAuthority(HttpServletRequest request, Authentication authentication){
         boolean hasAuthority = false;
-        System.out.println(HttpUtil.getAccountIp(request));
+        String username = null;
         if (authentication.getPrincipal() instanceof UserDetails){
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            username = userDetails.getUsername();
             Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
             if (doMatcher(request.getRequestURI(),authorities))
                 hasAuthority = true;
         }
-        if (hasAuthority){
-            System.out.println(request.getRequestURI()+" 认证成功");
-        } else {
-            System.out.println(request.getRequestURI()+" 认证失败");
-        }
+        //日志的保存
+        logService.saveLog(request,username,hasAuthority);
         return hasAuthority;
     }
 

@@ -42,6 +42,14 @@ public class SU {
         return null != collection && collection.size() > 0;
     }
 
+    /**
+     * 获取long型时间戳
+     * @return 时间戳
+     */
+    public static Long getLongDate(){
+        return System.currentTimeMillis();
+    }
+
     public static void main(String[] args) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         System.out.println(encoder.encode("admin"));

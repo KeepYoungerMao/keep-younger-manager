@@ -12,7 +12,7 @@ import java.util.List;
 public interface SystemService {
 
     //根据登录名查询用户信息
-    User getUserByUsername(String username);
+    User getUserByUsername(String username, boolean needAuthority);
 
     //获取所有菜单
     List<Menu> getAllMenu();

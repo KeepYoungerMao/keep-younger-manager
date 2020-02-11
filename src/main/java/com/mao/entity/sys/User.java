@@ -19,15 +19,17 @@ import java.util.List;
 @ToString
 public class User implements UserDetails {
 
-    private Long id;
-    private String full_name;
-    private String username;
-    private String password;
-    private Boolean locked;
-    private Boolean expired;
-    private Boolean enabled;
+    private Long id;                //主键
+    private String full_name;       //姓名
+    private String username;        //登录名
+    private String password;        //密码
+    private Boolean locked;         //是否锁定
+    private Boolean expired;        //是否过期
+    private Boolean enabled;        //是否正常使用
 
-    private List<Permission> permissions;
+    private List<Permission> permissions;   //权限列表
+
+    private Long role_id;           //用户角色id
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
