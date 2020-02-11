@@ -1,5 +1,6 @@
 package com.mao.config;
 
+import com.mao.service.security.DefaultAccessDeniedHandler;
 import com.mao.service.security.DefaultAuthenticationSuccessHandler;
 import com.mao.service.security.DefaultLogoutSuccessHandler;
 import com.mao.service.security.SecurityUserDetailService;
@@ -25,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SecurityUserDetailService securityUserDetailService;
     private DefaultAuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
     private DefaultLogoutSuccessHandler defaultLogoutSuccessHandler;
+    private DefaultAccessDeniedHandler defaultAccessDeniedHandler;
 
     @Autowired
     public void setSecurityUserDetailService(SecurityUserDetailService securityUserDetailService){
@@ -37,6 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void setDefaultLogoutSuccessHandler(DefaultLogoutSuccessHandler handler){
         this.defaultLogoutSuccessHandler = handler;
+    }
+    @Autowired
+    public void setDefaultAccessDeniedHandler(DefaultAccessDeniedHandler handler){
+        this.defaultAccessDeniedHandler = handler;
     }
 
     @Bean
@@ -58,6 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 授权
+     * 认证失败采用自定义处理器：用于记录操作事件
+     * 登录登出采用自定义处理器，用于记录用户登录登出事件
      * @param http 授权配置
      * @throws Exception e
      */
@@ -70,7 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/auth")
+                .accessDeniedHandler(defaultAccessDeniedHandler)
+                //.accessDeniedPage("/auth")
                 .and()
                 .formLogin()
                 .loginPage("/login")
