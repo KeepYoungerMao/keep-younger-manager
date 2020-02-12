@@ -13,9 +13,10 @@
 
     <!-- save login log data -->
     <insert id="saveLoginLog" parameterType="com.mao.entity.sys.LoginLog">
-        INSERT INTO sys_login_log(`id`,`user_id`,`account_ip`,`account_address`,
-        `login_type`,`login_date`)
-        VALUE(#{id},#{user_id},#{account_ip},#{account_address},#{login_type},#{login_date})
+        INSERT INTO sys_login_log(`id`,`user_id`,`user_login`,`account_ip`,
+        `account_address`,`login_type`,`login_date`)
+        VALUE(#{id},#{user_id},#{user_login},#{account_ip},#{account_address},
+        #{login_type},#{login_date})
     </insert>
 
 </mapper>

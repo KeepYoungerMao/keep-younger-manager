@@ -41,8 +41,8 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
             username = userDetails.getUsername();
         }
         //登陆类型、登录地点 待升级
-        logService.saveLoginLog(request,username, LoginEnum.LOGOUT,"宜春");
-        log.info(" [ {} ] 登出成功",username);
+        logService.saveLoginLog(request,username, LoginEnum.PASSWORD_LOGIN,"宜春");
+        log.info("[ {} ] 登陆成功",username);
         response.sendRedirect("/");
     }
 }

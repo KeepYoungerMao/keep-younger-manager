@@ -98,7 +98,7 @@ public class DefaultLogService implements LogService {
     public void saveLoginLog(HttpServletRequest request, String username,
                              LoginEnum type, String address) {
         if (null != username){
-            User user = systemService.getUserByUsername(username, false);
+            User user = systemService.getUserByUsername(username,false);
             LoginLog log = makeLoginLog(request,user,type,address);
             logMapper.saveLoginLog(log);
         }
