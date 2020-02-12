@@ -65,9 +65,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 授权
      * 认证失败采用自定义处理器：用于记录操作事件
      * 登录登出采用自定义处理器，用于记录用户登录登出事件
-     * access() 方法：自定义授权方法
+     * 注：使用.defaultSuccessUrl("/",true)可以在登录成功后跳转至指定页面
+     * access() 方法：自定义授权方法：.antMatchers("/**").access(class)
      *   使用自定义授权方法是需要记录用户访问资源成功或失败的日志
      *   使用后可以去除.exceptionHandling()方法（当时使用此方法获取用户授权失败时的日志）
+     * 注：使用.antMatchers("/**").authenticated()
+     *     需要配合使用spring security注解可以对不同方法进行验证
      * @param http 授权配置
      * @throws Exception e
      */
@@ -78,16 +81,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/**")
                 .access("@DefaultAuthenticationHandler.hasAuthority(request,authentication)")
-                //.authenticated()
-                //.and()
-                //.exceptionHandling()
-                //.accessDeniedHandler(defaultAccessDeniedHandler)
-                //.accessDeniedPage("/auth")
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login-error")
-                //.defaultSuccessUrl("/",true)
                 .successHandler(defaultAuthenticationSuccessHandler)
                 .and()
                 .logout()

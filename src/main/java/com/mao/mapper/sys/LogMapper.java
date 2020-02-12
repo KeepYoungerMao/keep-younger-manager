@@ -1,6 +1,7 @@
 package com.mao.mapper.sys;
 
 import com.mao.entity.sys.Log;
+import com.mao.entity.sys.LoginLog;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,16 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface LogMapper {
 
-    //保存日志信息
+    /**
+     * save log data
+     * @param log log data
+     */
     void saveLog(Log log);
+
+    /**
+     * save login log data
+     * @param loginLog login log data
+     */
+    void saveLoginLog(LoginLog loginLog);
 
 }

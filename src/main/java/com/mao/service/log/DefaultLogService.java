@@ -2,6 +2,8 @@ package com.mao.service.log;
 
 import com.mao.config.IdBuilder;
 import com.mao.entity.sys.Log;
+import com.mao.entity.sys.LoginEnum;
+import com.mao.entity.sys.LoginLog;
 import com.mao.entity.sys.User;
 import com.mao.mapper.sys.LogMapper;
 import com.mao.service.sys.SystemService;
@@ -42,7 +44,7 @@ public class DefaultLogService implements LogService {
     }
 
     /**
-     * 日志的保存
+     * 系统操作日志的保存
      * 根据用户名获取用户信息
      * 根据request获取请求信息
      * 后续：根据url获取事件名称和事件类型
@@ -82,6 +84,43 @@ public class DefaultLogService implements LogService {
         log.setRequest_url(request.getRequestURI());
         log.setProcess_access(access);
         log.setProcess_date(SU.getLongDate());
+        return log;
+    }
+
+    /**
+     * 用户登录登出日志的保存
+     * @param request request
+     * @param username 用户登陆名
+     * @param type 登录登出类型
+     * @param address 操作者登录时所在城市
+     */
+    @Override
+    public void saveLoginLog(HttpServletRequest request, String username,
+                             LoginEnum type, String address) {
+        if (null != username){
+            User user = systemService.getUserByUsername(username, false);
+            LoginLog log = makeLoginLog(request,user,type,address);
+            logMapper.saveLoginLog(log);
+        }
+    }
+
+    /**
+     * 组装login_log数据
+     * @param request request
+     * @param user 用户数据
+     * @param type 登录登出类型
+     * @param address 操作者所在城市
+     * @return LoginLog
+     */
+    private LoginLog makeLoginLog(HttpServletRequest request, User user, LoginEnum type, String address){
+        LoginLog log = new LoginLog();
+        log.setId(idBuilder.getInstance().nextId());
+        log.setUser_id(user.getId());
+        log.setUser_login(user.getUsername());
+        log.setAccount_ip(HttpUtil.getAccountIp(request));
+        log.setAccount_address(address);
+        log.setLogin_type(type);
+        log.setLogin_date(SU.getLongDate());
         return log;
     }
 
