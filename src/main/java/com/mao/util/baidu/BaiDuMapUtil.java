@@ -3,9 +3,9 @@ package com.mao.util.baidu;
 import com.mao.util.HttpUtil;
 import com.mao.util.JsonUtil;
 import com.mao.util.baidu.entity.IpAddressResult;
-import org.springframework.http.HttpMethod;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 百度地图工具类
@@ -27,9 +27,10 @@ public class BaiDuMapUtil {
      * @return 地址信息
      */
     private static IpAddressResult getAddressByIP(String ip){
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        String url = GET_LOCATION_URL+"?ak="+AK+"&ip="+ip;
-        String result = HttpUtil.http(url, HttpMethod.GET, map);
+        Map<String,String> map = new HashMap<>();
+        map.put("ak",AK);
+        map.put("ip",ip);
+        String result = HttpUtil.get(GET_LOCATION_URL,map);
         try {
             return JsonUtil.json2obj(result,IpAddressResult.class);
         } catch (Exception e) {

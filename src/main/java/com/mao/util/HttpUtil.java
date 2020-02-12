@@ -1,11 +1,13 @@
 package com.mao.util;
 
-import org.springframework.http.*;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Http方面工具类
@@ -27,6 +29,11 @@ public class HttpUtil {
      * 本机名称
      */
     public static final String BASIC_LOCAL_NAME = "本机";
+
+    //请求设置
+    private static final int CONNECTION_TIMEOUT = 5000;
+    private static final int READ_TIMEOUT = 5000;
+    private static final String CHARSET = "UTF-8";
 
     /**
      * 获取访问者IP
@@ -55,24 +62,172 @@ public class HttpUtil {
     }
 
     /**
-     * spring boot自带http请求方法
      * http请求
-     * @param url 请求地址
-     * @param method 请求方法类型
+     * @param url url
      * @param params 参数
-     * @return 字符串类型返回结果
+     * @param headers 头部
+     * @param method 请求方法
+     * @return 返回数据
      */
-    public static String http(String url, HttpMethod method,
-                              MultiValueMap<String, String> params) {
-        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(5000);
-        requestFactory.setReadTimeout(5000);
-        RestTemplate template = new RestTemplate(requestFactory);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params,httpHeaders);
-        ResponseEntity<String> entity = template.exchange(url, method, httpEntity, String.class);
-        return entity.getBody();
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static String invokeUrl(String url, Map params, Map<String, String> headers, HttpMethod method) {
+        //构造请求参数字符串
+        StringBuilder paramsStr = null;
+        if (params != null) {
+            paramsStr = new StringBuilder();
+            Set<Map.Entry> entries = params.entrySet();
+            for (Map.Entry entry : entries) {
+                String value = (entry.getValue() != null) ? (String.valueOf(entry.getValue())) : "";
+                paramsStr.append(entry.getKey()).append("=").append(value).append("&");
+            }
+            //只有POST方法才能通过OutputStream(即form的形式)提交参数
+            if (method != HttpMethod.POST) {
+                url += "?" + paramsStr.toString();
+            }
+        }
+
+        URL uUrl;
+        HttpURLConnection conn = null;
+        BufferedWriter out = null;
+        BufferedReader in = null;
+        try {
+            //创建和初始化连接
+            uUrl = new URL(url);
+            conn = (HttpURLConnection) uUrl.openConnection();
+            conn.setRequestProperty("content-type", "application/x-www-form-urlencoded");
+            conn.setRequestMethod(method.toString());
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            //设置连接超时时间
+            conn.setConnectTimeout(CONNECTION_TIMEOUT);
+            //设置读取超时时间
+            conn.setReadTimeout(READ_TIMEOUT);
+            //指定请求header参数
+            if (headers != null && headers.size() > 0) {
+                Set<String> headerSet = headers.keySet();
+                for (String key : headerSet) {
+                    conn.setRequestProperty(key, headers.get(key));
+                }
+            }
+
+            if (paramsStr != null && method == HttpMethod.POST) {
+                //发送请求参数
+                out = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(),CHARSET));
+                out.write(paramsStr.toString());
+                out.flush();
+            }
+
+            //接收返回结果
+            StringBuilder result = new StringBuilder();
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(),CHARSET));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result.append(line);
+            }
+            return result.toString();
+        } catch (Exception e) {
+            //处理错误流，提高http连接被重用的几率
+            try {
+                if (null != conn){
+                    InputStream es = conn.getErrorStream();
+                    if (null != es) {
+                        es.close();
+                    }
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //关闭连接
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * POST方法提交Http请求
+     */
+    public static String post(String url, Map params) {
+        return invokeUrl(url,params,null,HttpMethod.POST);
+    }
+
+    /**
+     * POST方法提交Http请求
+     */
+    public static String post(String url, Map params, Map<String, String> headers) {
+        return invokeUrl(url,params,headers,HttpMethod.POST);
+    }
+
+    /**
+     * GET方法提交Http请求
+     */
+    public static String get(String url, Map params) {
+        return invokeUrl(url,params,null,HttpMethod.GET);
+    }
+
+    /**
+     * GET方法提交Http请求
+     */
+    public static String get(String url, Map params, Map<String, String> headers) {
+        return invokeUrl(url,params,headers,HttpMethod.GET);
+    }
+
+    /**
+     * PUT方法提交Http请求
+     */
+    public static String put(String url, Map params) {
+        return invokeUrl(url,params,null,HttpMethod.PUT);
+    }
+
+    /**
+     * PUT方法提交Http请求
+     */
+    public static String put(String url, Map params, Map<String, String> headers) {
+        return invokeUrl(url,params,headers,HttpMethod.PUT);
+    }
+
+    /**
+     * DELETE方法提交Http请求
+     */
+    public static String delete(String url, Map params) {
+        return invokeUrl(url,params,null,HttpMethod.DELETE);
+    }
+
+    /**
+     * DELETE方法提交Http请求
+     */
+    public static String delete(String url, Map params, Map<String, String> headers) {
+        return invokeUrl(url,params,headers,HttpMethod.DELETE);
+    }
+
+    /**
+     * HEAD方法提交Http请求
+     */
+    public static String head(String url, Map params) {
+        return invokeUrl(url,params,null,HttpMethod.HEAD);
+    }
+
+    /**
+     * HEAD方法提交Http请求
+     */
+    public static String head(String url, Map params, Map<String, String> headers) {
+        return invokeUrl(url,params,headers,HttpMethod.HEAD);
     }
 
 }
