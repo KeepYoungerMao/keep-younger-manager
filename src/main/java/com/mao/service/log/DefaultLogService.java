@@ -9,6 +9,7 @@ import com.mao.mapper.sys.LogMapper;
 import com.mao.service.sys.SystemService;
 import com.mao.util.HttpUtil;
 import com.mao.util.SU;
+import com.mao.util.baidu.BaiDuMapUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,14 +93,12 @@ public class DefaultLogService implements LogService {
      * @param request request
      * @param username 用户登陆名
      * @param type 登录登出类型
-     * @param address 操作者登录时所在城市
      */
     @Override
-    public void saveLoginLog(HttpServletRequest request, String username,
-                             LoginEnum type, String address) {
+    public void saveLoginLog(HttpServletRequest request, String username, LoginEnum type) {
         if (null != username){
             User user = systemService.getUserByUsername(username,false);
-            LoginLog log = makeLoginLog(request,user,type,address);
+            LoginLog log = makeLoginLog(request,user,type);
             logMapper.saveLoginLog(log);
         }
     }
@@ -109,16 +108,16 @@ public class DefaultLogService implements LogService {
      * @param request request
      * @param user 用户数据
      * @param type 登录登出类型
-     * @param address 操作者所在城市
      * @return LoginLog
      */
-    private LoginLog makeLoginLog(HttpServletRequest request, User user, LoginEnum type, String address){
+    private LoginLog makeLoginLog(HttpServletRequest request, User user, LoginEnum type){
         LoginLog log = new LoginLog();
         log.setId(idBuilder.getInstance().nextId());
         log.setUser_id(user.getId());
         log.setUser_login(user.getUsername());
-        log.setAccount_ip(HttpUtil.getAccountIp(request));
-        log.setAccount_address(address);
+        String ip = HttpUtil.getAccountIp(request);
+        log.setAccount_ip(ip);
+        log.setAccount_address(BaiDuMapUtil.getOnlyAddressByIP(ip));
         log.setLogin_type(type);
         log.setLogin_date(SU.getLongDate());
         return log;

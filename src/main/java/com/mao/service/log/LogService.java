@@ -14,6 +14,6 @@ public interface LogService {
     void saveLog(HttpServletRequest request, String username, boolean access);
 
     //用户登录登出日志的保存
-    void saveLoginLog(HttpServletRequest request, String username, LoginEnum type, String address);
+    void saveLoginLog(HttpServletRequest request, String username, LoginEnum type);
 
 }

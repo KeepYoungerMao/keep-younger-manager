@@ -1,5 +1,10 @@
 package com.mao.util;
 
+import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -8,8 +13,20 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HttpUtil {
 
+    /**
+     * 本机识别ip地址
+     */
     private static final String LOCAL_IP = "0:0:0:0:0:0:0:1";
-    private static final String BASIC_LOCAL_IP = "127.0.0.1";
+
+    /**
+     * 标准本机ip地址
+     */
+    public static final String BASIC_LOCAL_IP = "127.0.0.1";
+
+    /**
+     * 本机名称
+     */
+    public static final String BASIC_LOCAL_NAME = "本机";
 
     /**
      * 获取访问者IP
@@ -35,6 +52,27 @@ public class HttpUtil {
             ip = request.getRemoteAddr();
         }
         return LOCAL_IP.equals(ip) ? BASIC_LOCAL_IP : ip;
+    }
+
+    /**
+     * spring boot自带http请求方法
+     * http请求
+     * @param url 请求地址
+     * @param method 请求方法类型
+     * @param params 参数
+     * @return 字符串类型返回结果
+     */
+    public static String http(String url, HttpMethod method,
+                              MultiValueMap<String, String> params) {
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(5000);
+        requestFactory.setReadTimeout(5000);
+        RestTemplate template = new RestTemplate(requestFactory);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params,httpHeaders);
+        ResponseEntity<String> entity = template.exchange(url, method, httpEntity, String.class);
+        return entity.getBody();
     }
 
 }

@@ -27,7 +27,7 @@ class KeepYoungerManagerApplicationTests {
 		System.out.println("hello world");
 	}
 
-	@Test
+	//@Test
 	void transId(){
 		List<Integer> ids = testMapper.getIds();
 		for (Integer id : ids) {

@@ -40,7 +40,7 @@ public class DefaultLogoutSuccessHandler implements LogoutSuccessHandler {
             username = userDetails.getUsername();
         }
         //登陆类型、登录地点 待升级
-        logService.saveLoginLog(request,username, LoginEnum.LOGOUT,"北京");
+        logService.saveLoginLog(request,username, LoginEnum.LOGOUT);
         log.info("[ {} ] 登出成功",username);
         response.sendRedirect("/login");
     }
