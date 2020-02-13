@@ -1,12 +1,12 @@
 package com.mao.service.log;
 
 import com.mao.config.IdBuilder;
-import com.mao.entity.sys.Log;
-import com.mao.entity.sys.LoginEnum;
-import com.mao.entity.sys.LoginLog;
-import com.mao.entity.sys.User;
+import com.mao.entity.sys.*;
+import com.mao.mapper.response.ResponseData;
 import com.mao.mapper.sys.LogMapper;
+import com.mao.service.BaseService;
 import com.mao.service.sys.SystemService;
+import com.mao.util.DateUtil;
 import com.mao.util.HttpUtil;
 import com.mao.util.SU;
 import com.mao.util.baidu.BaiDuMapUtil;
@@ -17,13 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 日志管理
  * @author mao by 18:03 2020/1/8
  */
 @Service
-public class DefaultLogService implements LogService {
+public class DefaultLogService extends BaseService implements LogService {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultLogService.class);
 
@@ -84,7 +85,7 @@ public class DefaultLogService implements LogService {
         log.setAccount_ip(HttpUtil.getAccountIp(request));
         log.setRequest_url(request.getRequestURI());
         log.setProcess_access(access);
-        log.setProcess_date(SU.getLongDate());
+        log.setProcess_date(DateUtil.getLongDate());
         return log;
     }
 
@@ -119,8 +120,22 @@ public class DefaultLogService implements LogService {
         log.setAccount_ip(ip);
         log.setAccount_address(BaiDuMapUtil.getOnlyAddressByIP(ip));
         log.setLogin_type(type);
-        log.setLogin_date(SU.getLongDate());
+        log.setLogin_date(DateUtil.getLongDate());
         return log;
     }
 
+    /**
+     * 查询系统操作日志
+     * @param logParam 日志请求参数
+     * @return 系统操作日志列表
+     */
+    @Override
+    public ResponseData getLogs(LogParam logParam) {
+        if (null == logParam.getLimit() || logParam.getLimit() <= 0)
+            logParam.setLimit(20);
+        List<Log> logs = logMapper.getLogs(logParam);
+        if (logs.size() > 0)
+            logs.forEach(log -> log.setDate(DateUtil.getDate(log.getProcess_date())));
+        return ok(logs);
+    }
 }

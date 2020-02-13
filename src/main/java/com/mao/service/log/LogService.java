@@ -1,6 +1,8 @@
 package com.mao.service.log;
 
+import com.mao.entity.sys.LogParam;
 import com.mao.entity.sys.LoginEnum;
+import com.mao.mapper.response.ResponseData;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,5 +17,8 @@ public interface LogService {
 
     //用户登录登出日志的保存
     void saveLoginLog(HttpServletRequest request, String username, LoginEnum type);
+
+    //查询系统操作日志(根据用户id，数据类型，操作类型，操作时间，限制条数)
+    ResponseData getLogs(LogParam logParam);
 
 }

@@ -1,9 +1,12 @@
 package com.mao.mapper.sys;
 
 import com.mao.entity.sys.Log;
+import com.mao.entity.sys.LogParam;
 import com.mao.entity.sys.LoginLog;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 日志数据请求
@@ -24,5 +27,12 @@ public interface LogMapper {
      * @param loginLog login log data
      */
     void saveLoginLog(LoginLog loginLog);
+
+    /**
+     * search logs data
+     * @param logParam params data
+     * @return logs data
+     */
+    List<Log> getLogs(LogParam logParam);
 
 }
