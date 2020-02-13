@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2"/>
     <title></title>
+    <link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/static/css/global-keep-younger.ui.css}">
+    <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
-
 <body>
-
+<div th:replace="model/model::header"></div>
+<div th:replace="model/model::sidebar"></div>
+<div class="ky-container">
+    <div class="ky-container-header">
+        <span>返回上一页</span>
+    </div>
+    <div class="ky-main">
+        <h1>您访问的页面有误</h1>
+    </div>
+</div>
 </body>
-
+<script th:src="@{/static/js/jquery-2.0.3.js}"></script>
+<script th:src="@{/static/js/global-keep-younger.ui.js}"></script>
 </html>

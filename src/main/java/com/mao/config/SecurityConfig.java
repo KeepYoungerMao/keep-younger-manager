@@ -6,7 +6,6 @@ import com.mao.service.security.SecurityUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author mao by 14:13 2020/1/6
  */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private SecurityUserDetailService securityUserDetailService;
@@ -68,7 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 注：使用.defaultSuccessUrl("/",true)可以在登录成功后跳转至指定页面
      * access() 方法：自定义授权方法：.antMatchers("/**").access(class)
      *   使用自定义授权方法是需要记录用户访问资源成功或失败的日志
-     *   使用后可以去除.exceptionHandling()方法（当时使用此方法获取用户授权失败时的日志）
      * 注：使用.antMatchers("/**").authenticated()
      *     需要配合使用spring security注解可以对不同方法进行验证
      * @param http 授权配置
@@ -82,6 +80,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**")
                 .access("@DefaultAuthenticationHandler.hasAuthority(request,authentication)")
                 .and()
+                .exceptionHandling()
+                .accessDeniedPage("/auth")
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login-error")
@@ -91,7 +92,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(defaultLogoutSuccessHandler)
                 .and()
                 .rememberMe()
-                .rememberMeParameter("remember");
+                .rememberMeParameter("remember")
+                .and()
+                .csrf()
+                .disable();
     }
 
     /**

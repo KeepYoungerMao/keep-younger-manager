@@ -69,4 +69,9 @@ public class CommonController implements ErrorController {
     public String error(){
         return "error";
     }
+
+    @GetMapping("sys/log")
+    public String sysLog(){
+        return "sys/log/log";
+    }
 }

@@ -131,6 +131,8 @@ public class DefaultLogService extends BaseService implements LogService {
      */
     @Override
     public ResponseData getLogs(LogParam logParam) {
+        if (null == logParam)
+            logParam = new LogParam();
         if (null == logParam.getLimit() || logParam.getLimit() <= 0)
             logParam.setLimit(20);
         List<Log> logs = logMapper.getLogs(logParam);
