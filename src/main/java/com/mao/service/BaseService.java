@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BaseService {
 
-    static final String OK = "ok";
+    private static final String OK = "ok";
 
     protected static <T> ResponseData ok(T data){
         return o(ResponseEnum.SUCCESS,OK,data);
@@ -19,6 +19,10 @@ public class BaseService {
 
     protected static ResponseData bad(String msg){
         return o(ResponseEnum.BAD_REQUEST,msg,null);
+    }
+
+    protected static ResponseData permission(String msg){
+        return o(ResponseEnum.PERMISSION,msg,null);
     }
 
     public static ResponseData error(String msg){

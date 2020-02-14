@@ -1,5 +1,6 @@
 package com.mao.config;
 
+import com.mao.service.security.DefaultAccessDeniedHandler;
 import com.mao.service.security.DefaultAuthenticationSuccessHandler;
 import com.mao.service.security.DefaultLogoutSuccessHandler;
 import com.mao.service.security.SecurityUserDetailService;
@@ -24,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SecurityUserDetailService securityUserDetailService;
     private DefaultAuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
     private DefaultLogoutSuccessHandler defaultLogoutSuccessHandler;
-    //private DefaultAccessDeniedHandler defaultAccessDeniedHandler;
+    private DefaultAccessDeniedHandler defaultAccessDeniedHandler;
 
     @Autowired
     public void setSecurityUserDetailService(SecurityUserDetailService securityUserDetailService){
@@ -38,10 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void setDefaultLogoutSuccessHandler(DefaultLogoutSuccessHandler handler){
         this.defaultLogoutSuccessHandler = handler;
     }
-    /*@Autowired
+    @Autowired
     public void setDefaultAccessDeniedHandler(DefaultAccessDeniedHandler handler){
         this.defaultAccessDeniedHandler = handler;
-    }*/
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -81,7 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("@DefaultAuthenticationHandler.hasAuthority(request,authentication)")
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/auth")
+                .accessDeniedHandler(defaultAccessDeniedHandler)
+                //.accessDeniedPage("/auth")
                 .and()
                 .formLogin()
                 .loginPage("/login")

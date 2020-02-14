@@ -1,7 +1,8 @@
 package com.mao.service.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.mao.service.BaseService;
+import com.mao.util.JsonUtil;
+import com.mao.util.SU;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,36 @@ import java.io.IOException;
  * @author zongx at 2020/2/3 14:33
  */
 @Service
-public class DefaultAccessDeniedHandler implements AccessDeniedHandler {
+public class DefaultAccessDeniedHandler extends BaseService implements AccessDeniedHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(DefaultAccessDeniedHandler.class);
+    private static final String REQUEST_TYPE = "REQUEST-TYPE";
+    private static final String REQUEST_TYPE_VALUE = "ajax";
 
+    /**
+     * 授权失败处理方法
+     *
+     * 前端发送ajax请求时，header中发送专有参数REQUEST-TYPE=ajax
+     * 方法中判断有此参数时发送json数据
+     * 没有此参数则返回auth.html页面
+     *
+     * @param request request
+     * @param response response
+     * @param e exception
+     * @throws IOException e
+     * @throws ServletException s
+     */
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
                        AccessDeniedException e) throws IOException, ServletException {
-        log.info("[ {} ] 授权失败 ", request.getRequestURI());
-        response.sendRedirect("/auth");
+        String header = request.getHeader(REQUEST_TYPE);
+        if (SU.isNotEmpty(header) && REQUEST_TYPE_VALUE.equals(header)){
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            String json = JsonUtil.obj2json(permission("无权限"));
+            response.getWriter().write(null == json ? "response error" : json);
+        } else {
+            response.sendRedirect("/auth");
+        }
     }
 
 }
