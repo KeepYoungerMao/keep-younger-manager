@@ -1,0 +1,145 @@
+/* 弹框 */
+.mao-pop-zzc, .mao-box-zzc{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3000;
+}
+.mao-pop-point, .mao-box-point{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.mao-pop{
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    top: -100px;
+    left: -150px;
+    z-index: 3001;
+}
+.mao-box{
+    width: 600px;
+    height: 500px;
+    position: absolute;
+    top: -250px;
+    left: -300px;
+    z-index: 3001;
+}
+.mao-s-box{
+    height: 240px;
+}
+.mao-tips{
+    height: 30px;
+    width: 300px;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    top: 0;
+    left: -150px;
+}
+.mao-tips span{
+    border-radius: 4px;
+    padding: 10px 24px;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+.mao-pop-title, .mao-box-title{
+    height: 30px;
+    padding-left: 10px;
+    line-height: 30px;
+}
+.mao-pop-title i, .mao-box-title i{
+    font-size: 15px;
+    margin-right: 5px;
+}
+.mao-box .mao-box-close{
+    float: right;
+    font-size: 24px;
+    margin-top: 3px;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.mao-box .mao-box-close:hover{
+    transform: rotate(180deg);
+}
+.mao-pop-content{
+    height: 120px;
+    padding: 0 10px;
+}
+.mao-box-content{
+    height: 420px;
+    padding: 0 10px;
+    overflow-y: scroll;
+}
+.mao-s-box-content{
+    height: 160px;
+}
+.mao-pop-content p{
+    text-indent: 25px;
+    margin: 0;
+    padding: 20px 0;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+.mao-pop-bottom, .mao-box-bottom{
+    height: 50px;
+    padding-top: 10px;
+    text-align: right;
+}
+.mao-pop-bottom button, .mao-box-bottom button{
+    margin-right: 10px;
+    padding: 2px 15px;
+    cursor: pointer;
+}
+
+.mao-pop-zzc, .mao-box-zzc{
+    background-color: rgba(167, 167, 167, 0.53);
+}
+.mao-load-zzc{
+    background-color: rgba(150, 150, 150, 0.65);
+}
+.mao-pop,.mao-box{
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    color: #333333;
+    box-shadow: 0 0 10px #d3d3d3;
+}
+.mao-tips span{
+    background-color: #333333;
+    color: #fafafa;
+}
+.mao-pop-title,.mao-box-title{
+    background-color: #ffffff;
+    border-bottom: 1px solid #e1e1e1;
+}
+.mao-box-content{
+    border-bottom: 1px solid #e1e1e1;
+}
+.mao-pop-bottom .clear,.mao-box-bottom .clear{
+    background-color: #917214;
+    border: 1px solid #856812;
+}
+.mao-pop-bottom .clear:hover, .mao-box-bottom .clear:hover{
+    background-color: #bd8f1c;
+    border: 1px solid #bd8f1c;
+}
+.mao-pop-bottom .yes,.mao-box-bottom .yes{
+    background-color: #40b579;
+    border: 1px solid #399761;
+}
+.mao-pop-bottom .yes:hover,.mao-box-bottom .yes:hover{
+    background-color: #4bcc8a;
+    border: 1px solid #44c385;
+}
+.mao-pop-bottom .cancel,.mao-box-bottom .cancel{
+    background-color: #ae9749;
+    border: 1px solid #a89348;
+}
+.mao-pop-bottom .cancel:hover,.mao-box-bottom .cancel:hover{
+    background-color: #d2b857;
+    border: 1px solid #d0bb56;
+}

@@ -4,16 +4,14 @@ import com.mao.entity.sys.LogParam;
 import com.mao.mapper.response.ResponseData;
 import com.mao.service.log.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 日志请求处理
  * @author mao by 11:03 2020/2/13
  */
 @RestController
+@RequestMapping("v/log")
 public class LogController {
 
     private LogService logService;
@@ -24,11 +22,10 @@ public class LogController {
     }
 
     /**
-     * TODO 无法通过
+     * 查询系统日志列表
      */
-    @PostMapping("v/log/sys")
+    @PostMapping("sys")
     public @ResponseBody ResponseData sysLog(@RequestBody LogParam logParam){
-        System.out.println(111);
         return logService.getLogs(logParam);
     }
 

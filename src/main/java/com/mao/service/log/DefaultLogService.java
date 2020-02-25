@@ -135,9 +135,10 @@ public class DefaultLogService extends BaseService implements LogService {
             logParam = new LogParam();
         if (null == logParam.getLimit() || logParam.getLimit() <= 0)
             logParam.setLimit(20);
+        Integer page = logParam.getPage();
+        page = null == page || page <= 1 ? 0 : (page - 1)*logParam.getLimit();
+        logParam.setPage(page);
         List<Log> logs = logMapper.getLogs(logParam);
-        if (logs.size() > 0)
-            logs.forEach(log -> log.setDate(DateUtil.getDate(log.getProcess_date())));
         return ok(logs);
     }
 }

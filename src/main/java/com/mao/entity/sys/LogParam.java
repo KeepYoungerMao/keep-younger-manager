@@ -16,6 +16,12 @@ public class LogParam {
     private String process_type;    //操作类型
     private Long start_time;        //开始时间
     private Long end_time;          //结束时间
+    private Integer page;           //页码
     private Integer limit;          //限制条数
+
+    public LogParam(){
+        this.page = 0;
+        this.limit = 0;
+    }
 
 }

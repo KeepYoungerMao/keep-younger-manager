@@ -168,3 +168,76 @@ function ky_post_submit(url, params, target) {
     form.submit();
     document.body.removeChild(form);
 }
+
+//===================== header 参数信息 ================================
+const CONTENT_TYPE = "Content-Type";
+const CONTENT_TYPE_VALUE = "application/json;charset=utf-8";
+const REQUEST_TYPE = "REQUEST-TYPE";
+const REQUEST_TYPE_VALUE = "ajax";
+
+/**
+ * 发送ajax方法时运行此函数
+ * 添加header头部信息：
+ * 1. JSON形式发送
+ * Content-Type: application/json;charset=utf-8
+ * 2. 告诉后台为ajax请求
+ * REQUEST-TYPE: ajax
+ */
+$(document).ajaxSend(function (e,xhr,opt){
+    xhr.setRequestHeader(CONTENT_TYPE,CONTENT_TYPE_VALUE);
+    xhr.setRequestHeader(REQUEST_TYPE,REQUEST_TYPE_VALUE);
+});
+
+$.ajaxSetup({
+    error: function (xhr, status, e) {
+        switch (xhr.status){
+            case 400:
+                pop("无此服务[400]");
+                break;
+            case 401:
+                pop("服务被限制[401]");
+                break;
+            case 403:
+                pop("请求被驳回[403]");
+                break;
+            case 405:
+                pop("请求错误[405]");
+                break;
+            case 408:
+                pop("请求超时[408]");
+                break;
+            case 500:
+                pop("服务器错误！请联系管理员[500]");
+                break;
+            default:
+                pop("未知错误["+xhr.status+"]");
+                break;
+        }
+    }
+});
+
+/**
+ * 时间格式化
+ * 返回格式：yyyy-MM-dd HH:mm:ss
+ * 注：月份+1，美式月份从0开始
+ * @param timestamp 时间戳
+ * @return {string}
+ */
+function dateFormat(timestamp){
+    var time = new Date(timestamp);
+    var y = time.getFullYear(),
+        M = time.getMonth() + 1,
+        d = time.getDate(),
+        H = time.getHours(),
+        m = time.getMinutes(),
+        s = time.getSeconds();
+    //add0()方法在后面定义
+    return  y+'-'+add0(M)+'-'+add0(d)+' '+add0(H)+':'+add0(m)+':'+add0(s);
+}
+
+/**
+ * 加0操作
+ */
+function add0(m) {
+    return m < 10 ? '0' + m: m
+}

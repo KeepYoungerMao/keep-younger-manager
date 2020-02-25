@@ -23,6 +23,4 @@ public class Log {
     private Boolean process_access;         //操作是否成功
     private Long process_date;              //操作时间
 
-    private String date;                    //字符串时间
-
 }
