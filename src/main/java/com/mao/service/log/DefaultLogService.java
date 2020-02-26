@@ -2,7 +2,6 @@ package com.mao.service.log;
 
 import com.mao.config.IdBuilder;
 import com.mao.entity.sys.*;
-import com.mao.mapper.response.ResponseData;
 import com.mao.mapper.sys.LogMapper;
 import com.mao.service.BaseService;
 import com.mao.service.sys.SystemService;
@@ -130,7 +129,7 @@ public class DefaultLogService extends BaseService implements LogService {
      * @return 系统操作日志列表
      */
     @Override
-    public ResponseData getLogs(LogParam logParam) {
+    public List<Log> getLogs(LogParam logParam) {
         if (null == logParam)
             logParam = new LogParam();
         if (null == logParam.getLimit() || logParam.getLimit() <= 0)
@@ -138,7 +137,6 @@ public class DefaultLogService extends BaseService implements LogService {
         Integer page = logParam.getPage();
         page = null == page || page <= 1 ? 0 : (page - 1)*logParam.getLimit();
         logParam.setPage(page);
-        List<Log> logs = logMapper.getLogs(logParam);
-        return ok(logs);
+        return logMapper.getLogs(logParam);
     }
 }

@@ -106,3 +106,14 @@ function tips(msg,wait) {
         pop_off();
     },wait);
 }
+
+function loading() {
+    let tips = '<div class="mao-pop-zzc">'+
+        '<div class="mao-pop-point">'+
+        '<div class="mao-tips">'+
+        '<i class="fa fa-spinner fa-spin" style="font-size: 40px;color: #ffffff"></i>'+
+        '</div>'+
+        '</div>'+
+        '</div>';
+    $(".ky-container").append(tips);
+}

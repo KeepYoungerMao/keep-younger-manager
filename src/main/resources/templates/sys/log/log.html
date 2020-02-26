@@ -26,13 +26,28 @@
     <div class="ky-main">
         <div class="ky-main-search-box">
             <div class="ky-main-search-item"><input id="dataType" type="text" placeholder="数据类型"></div>
-            <div class="ky-main-search-item"><input id="processType" type="text" placeholder="操作类型"></div>
-            <div class="ky-main-search-item"><input id="startTime" type="text" placeholder="开始时间"></div>
-            <div class="ky-main-search-item"><input id="endTime" type="text" placeholder="结束时间"></div>
+            <div class="ky-main-search-item">
+                <select id="processType">
+                    <option value="">操作类型：所有</option>
+                    <option value="查询">操作类型：查询</option>
+                    <option value="更新">操作类型：更新</option>
+                    <option value="新增">操作类型：新增</option>
+                    <option value="删除">操作类型：删除</option>
+                </select>
+            </div>
+            <div class="ky-main-search-item"><input id="startTime" type="date" placeholder="开始时间"></div>
+            <div class="ky-main-search-item"><input id="endTime" type="date" placeholder="结束时间"></div>
+            <button id="sysLogSearch" type="button">查询</button>
         </div>
         <div class="ky-main-search-box">
             <div class="ky-main-search-item"><input id="userId" type="text" placeholder="用户"></div>
-            <button id="sysLogSearch" type="button">查询</button>
+            <div class="ky-main-search-item">
+                <select id="processAccess">
+                    <option value="">操作：所有</option>
+                    <option value="true">操作：成功</option>
+                    <option value="false">操作：失败</option>
+                </select>
+            </div>
         </div>
         <table class="ky-data-table" cellpadding="0" cellspacing="0">
             <tr>
@@ -45,7 +60,7 @@
                 <th width="8%">状态</th>
                 <th width="15%">操作</th>
             </tr>
-            <tr class="ky-data-tr-one">
+            <!--<tr class="ky-data-tr-one">
                 <td>4130954854400</td>
                 <td>admin</td>
                 <td>/v/sys/log</td>
@@ -57,20 +72,7 @@
                     <a class="ky-icon-green" href="#">详情</a>
                     <a class="ky-icon-red" href="#">删除</a>
                 </td>
-            </tr>
-            <tr class="ky-data-tr-two">
-                <td>4130954854400</td>
-                <td>admin</td>
-                <td>/v/sys/log</td>
-                <td>系统日志查询</td>
-                <td>日志</td>
-                <td>查询</td>
-                <td><span class="ky-icon-red">失败</span></td>
-                <td>
-                    <a class="ky-icon-green" href="#">详情</a>
-                    <a class="ky-icon-red" href="#">删除</a>
-                </td>
-            </tr>
+            </tr>-->
         </table>
     </div>
 </div>
@@ -79,41 +81,93 @@
 <script th:src="@{/static/js/pop.js}"></script>
 <script th:src="@{/static/js/global-keep-younger.ui.js}"></script>
 <script th:inline="javascript">
+    let logParam = [[${logParam}]];
+    let logs = [[${logs}]];
+    console.log(logParam);
+    console.log(logs);
+
+    $(function () {
+        loadLogData();
+    });
+
     $("#sysLogSearch").on("click",function () {
-        var logParam = {
+        let _logParam = {
             user_id: 1,
             data_type: "",
             process_type: "",
             start_time: 0,
             end_time: 0,
+            process_access: null,
             page: 1,
-            limit: 20
+            limit: 10
         };
-        $.ajax({
-            url: "/v/log/sys",
-            type: "post",
-            data: JSON.stringify(logParam),
-            success: function (data) {
-                if(null == data){
-                    pop("数据请求失败");
-                } else if(data.code == 200){
-                    pop("数据加载成功");
-                } else {
-                    pop(data.msg);
-                }
-            }
-        });
+        //发送请求
+        ky_post_submit("/log/sys",_logParam,false);
     });
+
+    /**
+     * 数据加载前置
+     * @param table table
+     */
+    function loadLogDataPre(table) {
+        //清除原有数据
+        $(table).find(".ky-data-tr-one,.ky-data-tr-two").remove();
+        //等待
+        loading();
+    }
+
+    /**
+     * 数据加载前置
+     * @param data
+     */
+    function loadLogData(data) {
+        let table = $(".ky-data-table");
+        loadLogDataPre(table);
+        //最少等待1秒钟
+        setTimeout(function () {
+            //加载数据
+            loadLogDataDo(data,table);
+            //去除loading
+            pop_off();
+        },1000);
+    }
 
     /**
      * 数据加载
      * @param data
+     * @param table
      */
-    function loadData(data) {
-        var table = $(".ky-data-table");
-        //清除原有数据
-        $(table).remove(".ky-data-tr-one");
-        $(table).remove(".ky-data-tr-two");
+    function loadLogDataDo(data,table) {
+        let html = '';
+        if (null == logs || logs.length <= 0) {
+            html = '<tr><td colspan="8" style="text-align: center;height: 50px;color: #888888">无数据，或数据加载失败</td></tr>';
+        } else {
+            let one = true;
+            for (let i = 0,len = logs.length; i < len; i++) {
+                let pre;
+                if (one) {
+                    pre = '<tr class="ky-data-tr-one">';
+                } else {
+                    pre = '<tr class="ky-data-tr-two">';
+                }
+                one = !one;
+                let c = logs[i].process_access ? '<span class="ky-icon-green">成功</span>' : '<span class="ky-icon-red">失败</span>';
+                let fix = '<td>'+logs[i].id+'</td>' +
+                    '                <td>'+logs[i].user_login+'</td>' +
+                    '                <td>'+logs[i].request_url+'</td>' +
+                    '                <td>'+logs[i].process_name+'</td>' +
+                    '                <td>'+logs[i].data_type+'</td>' +
+                    '                <td>'+logs[i].process_type+'</td>' +
+                    '                <td>'+c+'</td>' +
+                    '                <td>' +
+                    '                    <a class="ky-icon-green" href="#">详情</a>' +
+                    '                    <a class="ky-icon-red" href="#">删除</a>' +
+                    '                </td>' +
+                    '            </tr>';
+                html += pre + fix;
+            }
+        }
+        $(table).append(html);
     }
 </script>
 </html>

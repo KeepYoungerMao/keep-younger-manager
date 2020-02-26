@@ -1,8 +1,8 @@
 //javascript for global keep younger UI
 //2020-01-10
 
-var WIDTH = window.innerWidth;
-var HEIGHT = window.innerHeight;
+let WIDTH = window.innerWidth;
+let HEIGHT = window.innerHeight;
 
 /**
  * 监听窗口的变化

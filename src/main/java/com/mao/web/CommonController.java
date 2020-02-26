@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 基本web跳转
@@ -26,7 +27,7 @@ public class CommonController implements ErrorController {
     /**
      * 首页
      */
-    @GetMapping({"","index"})
+    @RequestMapping({"","index"})
     public String index(Model model){
         model.addAttribute("menu",systemService.getAllMenu());
         return "index";
@@ -52,7 +53,7 @@ public class CommonController implements ErrorController {
     /**
      * 授权失败的页面
      */
-    @GetMapping("auth")
+    @RequestMapping("auth")
     public String auth(){
         return "auth";
     }
@@ -65,13 +66,9 @@ public class CommonController implements ErrorController {
     /**
      * 系统错误跳转
      */
-    @GetMapping(ERROR)
+    @RequestMapping(ERROR)
     public String error(){
         return "error";
     }
 
-    @GetMapping("sys/log")
-    public String sysLog(){
-        return "sys/log/log";
-    }
 }
