@@ -241,3 +241,16 @@ function dateFormat(timestamp){
 function add0(m) {
     return m < 10 ? '0' + m: m
 }
+
+/**
+ * 时间戳转换
+ * @param now
+ * @returns {string}
+ */
+function formatDate(now) {
+    now = new Date(now);
+    let year=now.getFullYear();
+    let month=now.getMonth()+1;
+    let date=now.getDate();
+    return year+"-"+add0(month)+"-"+add0(date);
+}

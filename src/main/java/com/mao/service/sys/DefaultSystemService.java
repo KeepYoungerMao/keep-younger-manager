@@ -3,9 +3,12 @@ package com.mao.service.sys;
 import com.mao.config.Cache;
 import com.mao.entity.sys.Menu;
 import com.mao.entity.sys.Permission;
+import com.mao.entity.sys.SimpleUser;
 import com.mao.entity.sys.User;
+import com.mao.mapper.response.ResponseData;
 import com.mao.mapper.sys.RolePermissionMapper;
 import com.mao.mapper.sys.UserMapper;
+import com.mao.service.BaseService;
 import com.mao.util.SU;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,7 @@ import java.util.List;
  * @author mao by 15:05 2020/1/6
  */
 @Service
-public class DefaultSystemService implements SystemService {
+public class DefaultSystemService extends BaseService implements SystemService {
 
     private UserMapper userMapper;
     private RolePermissionMapper rolePermissionMapper;
@@ -52,6 +55,20 @@ public class DefaultSystemService implements SystemService {
             return user;
         }
         return null;
+    }
+
+    /**
+     * 查询用户列表
+     * 用于以用户id为查询条件的列表提供
+     * @param kw 关键词
+     * @return 用户列表
+     */
+    @Override
+    public ResponseData getUsers(String kw) {
+        if (SU.isEmpty(kw))
+            return ok(null);
+        List<SimpleUser> users = userMapper.getUsers(kw);
+        return ok(users);
     }
 
     /**

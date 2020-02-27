@@ -2,13 +2,44 @@
 <html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
     <title>系统日志</title>
     <link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
     <link rel="stylesheet" th:href="@{/static/css/global-keep-younger.ui.css}">
     <link rel="stylesheet" th:href="@{/static/css/pop.css}">
     <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
+<style>
+    #userSearchBox{
+        position: relative;
+    }
+    #userSearch{
+        position: absolute;
+        top: 38px;
+        left: 10px;
+        z-index: 100;
+        background-color: #ffffff;
+        border: .05rem solid #888888;
+        width: 208px;
+    }
+    #userSearch li{
+        height: 30px;
+        cursor: pointer;
+        padding-left: 5px;
+        line-height: 30px;
+        color: #333333;
+    }
+    #userSearch li:hover{
+        background-color: #89cbff;
+        color: #ffffff;
+    }
+</style>
+<script th:inline="javascript">
+    let logParam = [[${logParam}]];
+    let logs = [[${logs}]];
+    console.log(logParam);
+    console.log(logs);
+</script>
 <body>
 <div th:replace="model/model::header"></div>
 <div th:replace="model/model::sidebar"></div>
@@ -25,7 +56,15 @@
     </div>
     <div class="ky-main">
         <div class="ky-main-search-box">
-            <div class="ky-main-search-item"><input id="dataType" type="text" placeholder="数据类型"></div>
+            <div class="ky-main-search-item">
+                <select id="dataType">
+                    <option value="">数据类型：所有</option>
+                    <option value="日志">数据类型：日志</option>
+                    <option value="古籍">数据类型：古籍</option>
+                    <option value="成语">数据类型：成语</option>
+                    <option value="佛经">数据类型：佛经</option>
+                </select>
+            </div>
             <div class="ky-main-search-item">
                 <select id="processType">
                     <option value="">操作类型：所有</option>
@@ -40,7 +79,9 @@
             <button id="sysLogSearch" type="button">查询</button>
         </div>
         <div class="ky-main-search-box">
-            <div class="ky-main-search-item"><input id="userId" type="text" placeholder="用户"></div>
+            <div id="userSearchBox" class="ky-main-search-item">
+                <input id="userId" type="text" data-id="" onblur="blurUserSearch()" placeholder="用户：不支持英文大小写">
+            </div>
             <div class="ky-main-search-item">
                 <select id="processAccess">
                     <option value="">操作：所有</option>
@@ -80,94 +121,5 @@
 <script th:src="@{/static/js/jquery-2.0.3.js}"></script>
 <script th:src="@{/static/js/pop.js}"></script>
 <script th:src="@{/static/js/global-keep-younger.ui.js}"></script>
-<script th:inline="javascript">
-    let logParam = [[${logParam}]];
-    let logs = [[${logs}]];
-    console.log(logParam);
-    console.log(logs);
-
-    $(function () {
-        loadLogData();
-    });
-
-    $("#sysLogSearch").on("click",function () {
-        let _logParam = {
-            user_id: 1,
-            data_type: "",
-            process_type: "",
-            start_time: 0,
-            end_time: 0,
-            process_access: null,
-            page: 1,
-            limit: 10
-        };
-        //发送请求
-        ky_post_submit("/log/sys",_logParam,false);
-    });
-
-    /**
-     * 数据加载前置
-     * @param table table
-     */
-    function loadLogDataPre(table) {
-        //清除原有数据
-        $(table).find(".ky-data-tr-one,.ky-data-tr-two").remove();
-        //等待
-        loading();
-    }
-
-    /**
-     * 数据加载前置
-     * @param data
-     */
-    function loadLogData(data) {
-        let table = $(".ky-data-table");
-        loadLogDataPre(table);
-        //最少等待1秒钟
-        setTimeout(function () {
-            //加载数据
-            loadLogDataDo(data,table);
-            //去除loading
-            pop_off();
-        },1000);
-    }
-
-    /**
-     * 数据加载
-     * @param data
-     * @param table
-     */
-    function loadLogDataDo(data,table) {
-        let html = '';
-        if (null == logs || logs.length <= 0) {
-            html = '<tr><td colspan="8" style="text-align: center;height: 50px;color: #888888">无数据，或数据加载失败</td></tr>';
-        } else {
-            let one = true;
-            for (let i = 0,len = logs.length; i < len; i++) {
-                let pre;
-                if (one) {
-                    pre = '<tr class="ky-data-tr-one">';
-                } else {
-                    pre = '<tr class="ky-data-tr-two">';
-                }
-                one = !one;
-                let c = logs[i].process_access ? '<span class="ky-icon-green">成功</span>' : '<span class="ky-icon-red">失败</span>';
-                let fix = '<td>'+logs[i].id+'</td>' +
-                    '                <td>'+logs[i].user_login+'</td>' +
-                    '                <td>'+logs[i].request_url+'</td>' +
-                    '                <td>'+logs[i].process_name+'</td>' +
-                    '                <td>'+logs[i].data_type+'</td>' +
-                    '                <td>'+logs[i].process_type+'</td>' +
-                    '                <td>'+c+'</td>' +
-                    '                <td>' +
-                    '                    <a class="ky-icon-green" href="#">详情</a>' +
-                    '                    <a class="ky-icon-red" href="#">删除</a>' +
-                    '                </td>' +
-                    '            </tr>';
-                html += pre + fix;
-            }
-        }
-        $(table).append(html);
-    }
-</script>
+<script th:src="@{/static/js/sys/log/log.js}"></script>
 </html>

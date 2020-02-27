@@ -34,6 +34,9 @@
         <if test="process_type != null and process_type != ''">
             AND process_type = #{process_type}
         </if>
+        <if test="process_access != null">
+            AND process_access = #{process_access}
+        </if>
         <if test="start_time != null and start_time > 0">
             AND process_date &gt;= #{start_time}
         </if>

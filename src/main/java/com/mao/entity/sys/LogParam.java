@@ -12,6 +12,7 @@ import lombok.Setter;
 public class LogParam {
 
     private Long user_id;           //用户id
+    private String user_name;       //用户登录名
     private String data_type;       //数据类型
     private String process_type;    //操作类型
     private Long start_time;        //开始时间

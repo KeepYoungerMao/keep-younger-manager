@@ -1,9 +1,12 @@
 package com.mao.mapper.sys;
 
+import com.mao.entity.sys.SimpleUser;
 import com.mao.entity.sys.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 用户
@@ -15,5 +18,8 @@ public interface UserMapper {
 
     //根据登录名查询用户信息
     User getUserByUsername(@Param("username") String username);
+
+    //获取用户列表
+    List<SimpleUser> getUsers(@Param("kw") String kw);
 
 }

@@ -8,4 +8,8 @@
         FROM sys_user WHERE `username` = #{username}
     </select>
 
+    <select id="getUsers" parameterType="java.lang.String" resultType="com.mao.entity.sys.SimpleUser">
+        SELECT `id`,`username` FROM sys_user WHERE LOCATE(#{kw},`username`) > 0 LIMIT 6
+    </select>
+
 </mapper>
