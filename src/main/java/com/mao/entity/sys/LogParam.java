@@ -19,6 +19,7 @@ public class LogParam {
     private Long end_time;          //结束时间
     private Boolean process_access; //操作是否成功
     private Integer page;           //页码
+    private Long total;             //总页码数
     private Integer limit;          //限制条数
 
     public LogParam(){

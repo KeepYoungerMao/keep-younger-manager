@@ -115,11 +115,25 @@
                 </td>
             </tr>-->
         </table>
+        <div id="ky-page">
+            <label for="limitSelect">条数限制：</label>
+            <select id="limitSelect">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
+            <div id="pageShow">
+                <strong id="currentPage"></strong>
+                <strong> / </strong>
+                <strong id="totalPage"></strong>
+            </div>
+        </div>
     </div>
 </div>
 </body>
 <script th:src="@{/static/js/jquery-2.0.3.js}"></script>
 <script th:src="@{/static/js/pop.js}"></script>
+<script th:src="@{/static/js/page.js}"></script>
 <script th:src="@{/static/js/global-keep-younger.ui.js}"></script>
 <script th:src="@{/static/js/sys/log/log.js}"></script>
 </html>

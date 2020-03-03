@@ -46,4 +46,27 @@
         ORDER BY `process_date` DESC LIMIT #{limit}
     </select>
 
+    <!-- search logs data -->
+    <select id="getTotalPage" parameterType="com.mao.entity.sys.LogParam" resultType="java.lang.Long">
+        SELECT COUNT(`id`) FROM sys_log WHERE `id` > 0
+        <if test="user_id != null and user_id > 0">
+            AND `user_id` = #{user_id}
+        </if>
+        <if test="data_type != null and data_type != ''">
+            AND data_type = #{data_type}
+        </if>
+        <if test="process_type != null and process_type != ''">
+            AND process_type = #{process_type}
+        </if>
+        <if test="process_access != null">
+            AND process_access = #{process_access}
+        </if>
+        <if test="start_time != null and start_time > 0">
+            AND process_date &gt;= #{start_time}
+        </if>
+        <if test="end_time != null and end_time > 0">
+            AND process_date &lt;= #{end_time}
+        </if>
+    </select>
+
 </mapper>

@@ -6,34 +6,65 @@ $(function () {
     loadLogData();
     //加载参数
     loadLogParamData();
+    //加载页码
+    loadLogPage();
 });
+
+/**
+ * 加载页码
+ */
+function loadLogPage() {
+    let currentPage = logParam.page === 0 ? 1 : logParam.page;
+    let totalPage = logParam.total === 0 ? 1 : logParam.total;
+    if (currentPage > totalPage) currentPage = totalPage;
+    $("#currentPage").html(currentPage);
+    $("#totalPage").html(totalPage);
+    //加载页码
+    loadPage(currentPage,totalPage,"searchByPage",$("#ky-page"));
+}
+
+/**
+ * 页码点击方法
+ * @param page 需要请求的方法
+ */
+function searchByPage(page) {
+    console.log("点击页码："+page);
+    $("#currentPage").html(page);
+    searchClick();
+}
 
 /**
  * 加载日志参数
  */
 function loadLogParamData(){
+    //user_id
     let userId = logParam.user_id;
     if (null != userId) {
         $("#userId").attr("data-id",userId).val(logParam.user_name);
     }
+    //data_type
     let dataType = logParam.data_type;
     if (null == dataType)
         dataType = "";
     $("#dataType").find("option[value="+dataType+"]").attr("selected",true);
+    //process_type
     let processType = logParam.process_type;
     if (null == processType)
         processType = "";
     $("#processType").find("option[value="+processType+"]").attr("selected",true);
+    //start_time
     let startTime = logParam.start_time;
     if (startTime > 0) {
         let startTimeDate = formatDate(startTime);
         $("#startTime").val(startTimeDate);
     }
+    //end_time
     let endTime = logParam.end_time;
     if (endTime > 0) {
         let endTimeDate = formatDate(endTime);
         $("#endTime").val(endTimeDate);
     }
+    //process_access
     let processAccess = $("#processAccess");
     switch (logParam.process_access) {
         case true:
@@ -46,27 +77,38 @@ function loadLogParamData(){
             $(processAccess).find("option[value='']").attr("selected",true);
             break;
     }
+    //limit
+    let limit = logParam.limit;
+    $("#limitSelect").find("option[value="+limit+"]").attr("selected",true);
 }
 
 /**
  * 查询按钮点击方法
  */
 $("#sysLogSearch").on("click",function () {
+    searchClick();
+});
+
+/**
+ * 查询方法
+ */
+function searchClick() {
     let _logParam = {
-        user_id: 1,
+        user_id: 0,
         user_name: "",
         data_type: "",
         process_type: "",
         start_time: 0,
         end_time: 0,
         process_access: null,
-        page: 1,
+        page: 2,
         limit: 10
     };
     _logParam = getLogParam(_logParam);
+    //console.log(_logParam);
     //发送请求
     ky_post_submit("/log/sys",_logParam,false);
-});
+}
 
 /**
  * 获取日志查询参数
@@ -93,7 +135,7 @@ function getLogParam(param) {
     if (id === undefined || id == null || '' === id || isNaN(id))
         id = null;
     param.user_id = id;
-    //操作类型
+    //操作是否成功
     let accessString = $("#processAccess").val();
     switch (accessString) {
         case "true":
@@ -106,6 +148,12 @@ function getLogParam(param) {
             param.process_access = null;
             break;
     }
+    //当前页
+    let currentPage = $("#currentPage").text();
+    param.page = Number(currentPage);
+    //条数限制
+    let limit = $("#limitSelect").val();
+    param.limit = Number(limit);
     return param;
 }
 

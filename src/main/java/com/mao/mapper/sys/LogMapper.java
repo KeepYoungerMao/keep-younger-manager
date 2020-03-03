@@ -35,4 +35,11 @@ public interface LogMapper {
      */
     List<Log> getLogs(LogParam logParam);
 
+    /**
+     * search logs total page
+     * @param logParam params data
+     * @return total page
+     */
+    Long getTotalPage(LogParam logParam);
+
 }
