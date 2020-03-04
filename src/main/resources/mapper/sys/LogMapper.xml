@@ -4,7 +4,7 @@
 <mapper namespace="com.mao.mapper.sys.LogMapper">
 
     <!-- save log data -->
-    <insert id="saveLog" parameterType="com.mao.entity.sys.Log">
+    <insert id="saveLog" parameterType="com.mao.entity.sys.log.Log">
         INSERT INTO sys_log(`id`,`user_id`,`user_login`,`user_role`,`account_ip`,
         `request_url`,`process_name`,`process_type`,`process_access`,`process_date`)
         VALUE(#{id},#{user_id},#{user_login},#{user_role},#{account_ip},#{request_url},
@@ -12,7 +12,7 @@
     </insert>
 
     <!-- save login log data -->
-    <insert id="saveLoginLog" parameterType="com.mao.entity.sys.LoginLog">
+    <insert id="saveLoginLog" parameterType="com.mao.entity.sys.log.LoginLog">
         INSERT INTO sys_login_log(`id`,`user_id`,`user_login`,`account_ip`,
         `account_address`,`login_type`,`login_date`)
         VALUE(#{id},#{user_id},#{user_login},#{account_ip},#{account_address},
@@ -20,8 +20,8 @@
     </insert>
 
     <!-- search logs data -->
-    <select id="getLogs" parameterType="com.mao.entity.sys.LogParam"
-            resultType="com.mao.entity.sys.Log">
+    <select id="getLogs" parameterType="com.mao.entity.sys.log.LogParam"
+            resultType="com.mao.entity.sys.log.Log">
         SELECT `id`,`user_id`,`user_login`,`user_role`,`account_ip`,`request_url`,
         `process_name`,`data_type`,`process_type`,`process_access`,`process_date`
         FROM sys_log WHERE `id` > 0
@@ -43,11 +43,11 @@
         <if test="end_time != null and end_time > 0">
             AND process_date &lt;= #{end_time}
         </if>
-        ORDER BY `process_date` DESC LIMIT #{limit}
+        ORDER BY `process_date` DESC LIMIT #{page},#{limit}
     </select>
 
-    <!-- search logs data -->
-    <select id="getTotalPage" parameterType="com.mao.entity.sys.LogParam" resultType="java.lang.Long">
+    <!-- search log total page -->
+    <select id="getLogTotalPage" parameterType="com.mao.entity.sys.log.LogParam" resultType="java.lang.Long">
         SELECT COUNT(`id`) FROM sys_log WHERE `id` > 0
         <if test="user_id != null and user_id > 0">
             AND `user_id` = #{user_id}
@@ -66,6 +66,44 @@
         </if>
         <if test="end_time != null and end_time > 0">
             AND process_date &lt;= #{end_time}
+        </if>
+    </select>
+
+    <!-- search login logs data-->
+    <select id="getLoginLogs" parameterType="com.mao.entity.sys.log.LoginLogParam"
+            resultType="com.mao.entity.sys.log.LoginLog">
+        SELECT `id`,`user_id`,`user_login`,`account_ip`,`account_address`,`login_type`,`login_date`
+        FROM sys_login_log WHERE `id` > 0
+        <if test="user_id != null and user_id > 0">
+            AND `user_id` = #{user_id}
+        </if>
+        <if test="login_type != null and login_type != ''">
+            AND login_type = #{login_type}
+        </if>
+        <if test="start_time != null and start_time > 0">
+            AND login_date &gt;= #{start_time}
+        </if>
+        <if test="end_time != null and end_time > 0">
+            AND login_date &lt;= #{end_time}
+        </if>
+        ORDER BY `login_date` DESC LIMIT #{page},#{limit}
+    </select>
+
+    <!-- search login log total page -->
+    <select id="getLoginLogTotalPage" parameterType="com.mao.entity.sys.log.LoginLogParam"
+            resultType="java.lang.Long">
+        SELECT COUNT(`id`) FROM sys_login_log WHERE `id` > 0
+        <if test="user_id != null and user_id > 0">
+            AND `user_id` = #{user_id}
+        </if>
+        <if test="login_type != null and login_type != ''">
+            AND login_type = #{login_type}
+        </if>
+        <if test="start_time != null and start_time > 0">
+            AND login_date &gt;= #{start_time}
+        </if>
+        <if test="end_time != null and end_time > 0">
+            AND login_date &lt;= #{end_time}
         </if>
     </select>
 

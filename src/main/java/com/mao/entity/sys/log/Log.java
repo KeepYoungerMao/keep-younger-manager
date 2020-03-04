@@ -1,4 +1,4 @@
-package com.mao.entity.sys;
+package com.mao.entity.sys.log;
 
 import lombok.Getter;
 import lombok.Setter;

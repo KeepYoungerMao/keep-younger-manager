@@ -40,8 +40,18 @@ public class SU {
         return null != collection && collection.size() > 0;
     }
 
-    public static void main(String[] args) {
+    /**
+     * Long型相除的向上取整
+     * @param z 分子
+     * @param m 分母
+     * @return 除数
+     */
+    public static long ceil(long z, long m){
+        return (long) Math.ceil((double)z/(double)m);
+    }
 
+    public static void main(String[] args) {
+        System.out.println(ceil(40L,20L));
     }
 
 }

@@ -1,4 +1,4 @@
-package com.mao.entity.sys;
+package com.mao.entity.sys.log;
 
 /**
  * 登录登录状态

@@ -1,6 +1,6 @@
 package com.mao.service.security;
 
-import com.mao.entity.sys.LoginEnum;
+import com.mao.entity.sys.log.LoginEnum;
 import com.mao.service.log.LogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

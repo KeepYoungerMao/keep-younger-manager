@@ -1,7 +1,8 @@
 package com.mao.service.log;
 
 import com.mao.config.IdBuilder;
-import com.mao.entity.sys.*;
+import com.mao.entity.sys.User;
+import com.mao.entity.sys.log.*;
 import com.mao.mapper.sys.LogMapper;
 import com.mao.service.BaseService;
 import com.mao.service.sys.SystemService;
@@ -131,24 +132,27 @@ public class DefaultLogService extends BaseService implements LogService {
     @Override
     public List<Log> getLogs(LogParam logParam) {
         Integer page = logParam.getPage();
-        transLogParam(logParam);
-        Long total = logMapper.getTotalPage(logParam);
-        logParam.setTotal(total > 0 ? total/logParam.getLimit() : 0);
+        transPageParam(logParam);
+        Long total = logMapper.getLogTotalPage(logParam);
+        logParam.setTotal(total > 0 ? SU.ceil(total,logParam.getLimit()) : 1);
+        List<Log> logs = logMapper.getLogs(logParam);
         logParam.setPage(page);
-        return logMapper.getLogs(logParam);
+        return logs;
     }
 
     /**
-     * 转换日志参数
-     * @param logParam 日志请求参数
+     * 查询系统登录日志列表
+     * @param loginLogParam 登录日志参数
      */
-    private void transLogParam(LogParam logParam){
-        if (null == logParam)
-            logParam = new LogParam();
-        if (null == logParam.getLimit() || logParam.getLimit() <= 0)
-            logParam.setLimit(20);
-        Integer page = logParam.getPage();
-        page = null == page || page <= 1 ? 0 : (page - 1)*logParam.getLimit();
-        logParam.setPage(page);
+    @Override
+    public List<LoginLog> getLoginLogs(LoginLogParam loginLogParam) {
+        Integer page = loginLogParam.getPage();
+        transPageParam(loginLogParam);
+        Long total = logMapper.getLoginLogTotalPage(loginLogParam);
+        loginLogParam.setTotal(total > 0 ? SU.ceil(total,loginLogParam.getLimit()) : 1);
+        List<LoginLog> loginLogs = logMapper.getLoginLogs(loginLogParam);
+        loginLogParam.setPage(page);
+        return loginLogs;
     }
+
 }

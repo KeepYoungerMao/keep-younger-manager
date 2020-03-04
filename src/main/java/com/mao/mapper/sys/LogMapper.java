@@ -1,8 +1,9 @@
 package com.mao.mapper.sys;
 
-import com.mao.entity.sys.Log;
-import com.mao.entity.sys.LogParam;
-import com.mao.entity.sys.LoginLog;
+import com.mao.entity.sys.log.Log;
+import com.mao.entity.sys.log.LogParam;
+import com.mao.entity.sys.log.LoginLog;
+import com.mao.entity.sys.log.LoginLogParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -40,6 +41,20 @@ public interface LogMapper {
      * @param logParam params data
      * @return total page
      */
-    Long getTotalPage(LogParam logParam);
+    Long getLogTotalPage(LogParam logParam);
+
+    /**
+     * search login logs data
+     * @param loginLogParam params data
+     * @return login logs data
+     */
+    List<LoginLog> getLoginLogs(LoginLogParam loginLogParam);
+
+    /**
+     * search login logs total page
+     * @param loginLogParam params data
+     * @return total page
+     */
+    Long getLoginLogTotalPage(LoginLogParam loginLogParam);
 
 }

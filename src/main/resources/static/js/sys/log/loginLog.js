@@ -1,21 +1,21 @@
-//javascript for system log
-//2020-02-27
+//javascript for system login log
+//2020-03-04
 
 $(function () {
-    //加载日志列表
-    loadLogData();
+    //加载登录日志列表
+    loadLoginLogData();
     //加载参数
-    loadLogParamData();
+    loadLoginLogParamData();
     //加载页码
-    loadLogPage();
+    loadLoginLogPage();
 });
 
 /**
  * 加载页码
  */
-function loadLogPage() {
-    let currentPage = logParam.page === 0 ? 1 : logParam.page;
-    let totalPage = logParam.total === 0 ? 1 : logParam.total;
+function loadLoginLogPage(){
+    let currentPage = loginLogParam.page === 0 ? 1 : loginLogParam.page;
+    let totalPage = loginLogParam.total === 0 ? 1 : loginLogParam.total;
     if (currentPage > totalPage) currentPage = totalPage;
     $("#currentPage").html(currentPage);
     $("#totalPage").html(totalPage);
@@ -34,58 +34,39 @@ function searchByPage(page) {
 }
 
 /**
- * 加载日志参数
+ * 加载参数
  */
-function loadLogParamData(){
+function loadLoginLogParamData() {
     //user_id
-    let userId = logParam.user_id;
+    let userId = loginLogParam.user_id;
     if (null != userId) {
-        $("#userId").attr("data-id",userId).val(logParam.user_name);
+        $("#userId").attr("data-id",userId).val(loginLogParam.user_name);
     }
-    //data_type
-    let dataType = logParam.data_type;
-    if (null == dataType)
-        dataType = "";
-    $("#dataType").find("option[value="+dataType+"]").attr("selected",true);
-    //process_type
-    let processType = logParam.process_type;
-    if (null == processType)
-        processType = "";
-    $("#processType").find("option[value="+processType+"]").attr("selected",true);
+    //loginType
+    let login_type = loginLogParam.login_type;
+    if (null == login_type) login_type = "";
+    $("#loginType").find("option[value="+login_type+"]").attr("selected",true);
     //start_time
-    let startTime = logParam.start_time;
+    let startTime = loginLogParam.start_time;
     if (startTime > 0) {
         let startTimeDate = formatDate(startTime);
         $("#startTime").val(startTimeDate);
     }
     //end_time
-    let endTime = logParam.end_time;
+    let endTime = loginLogParam.end_time;
     if (endTime > 0) {
         let endTimeDate = formatDate(endTime);
         $("#endTime").val(endTimeDate);
     }
-    //process_access
-    let processAccess = $("#processAccess");
-    switch (logParam.process_access) {
-        case true:
-            $(processAccess).find("option[value='true']").attr("selected",true);
-            break;
-        case false:
-            $(processAccess).find("option[value='false']").attr("selected",true);
-            break;
-        default:
-            $(processAccess).find("option[value='']").attr("selected",true);
-            break;
-    }
     //limit
-    let limit = logParam.limit;
+    let limit = loginLogParam.limit;
     $("#limitSelect").find("option[value="+limit+"]").attr("selected",true);
 }
 
 /**
  * 查询按钮点击方法
  */
-$("#sysLogSearch").on("click",function () {
+$("#sysLoginLogSearch").on("click",function () {
     searchClick();
 });
 
@@ -93,31 +74,27 @@ $("#sysLogSearch").on("click",function () {
  * 查询方法
  */
 function searchClick() {
-    let _logParam = {
+    let _loginLogParam = {
         user_id: 0,
         user_name: "",
-        data_type: "",
-        process_type: "",
+        login_type: "",
         start_time: 0,
         end_time: 0,
-        process_access: null,
-        page: 2,
+        page: 1,
         limit: 10
     };
-    _logParam = getLogParam(_logParam);
+    _loginLogParam = getLogParam(_loginLogParam);
     //console.log(_logParam);
     //发送请求
-    ky_post_submit("/log/sys",_logParam,false);
+    ky_post_submit("/log/login",_loginLogParam,false);
 }
 
 /**
  * 获取日志查询参数
  */
 function getLogParam(param) {
-    //数据类型
-    param.data_type = $("#dataType").val();
-    //操作类型
-    param.process_type = $("#processType").val();
+    //登陆类型
+    param.login_type = $("#loginType").val();
     //开始时间
     let startTime = new Date($("#startTime").val()).getTime();
     if (isNaN(startTime))
@@ -135,19 +112,6 @@ function getLogParam(param) {
     if (id === undefined || id == null || '' === id || isNaN(id))
         id = null;
     param.user_id = id;
-    //操作是否成功
-    let accessString = $("#processAccess").val();
-    switch (accessString) {
-        case "true":
-            param.process_access = true;
-            break;
-        case "false":
-            param.process_access = false;
-            break;
-        default:
-            param.process_access = null;
-            break;
-    }
     //当前页
     let currentPage = $("#currentPage").text();
     param.page = Number(currentPage);
@@ -262,7 +226,7 @@ function blurUserSearch() {
  * 数据加载前置
  * @param table table
  */
-function loadLogDataPre(table) {
+function loadLoginLogDataPre(table) {
     //清除原有数据
     $(table).find(".ky-data-tr-one,.ky-data-tr-two").remove();
     //等待
@@ -273,13 +237,13 @@ function loadLogDataPre(table) {
  * 数据加载前置
  * @param data
  */
-function loadLogData(data) {
+function loadLoginLogData(data) {
     let table = $(".ky-data-table");
-    loadLogDataPre(table);
+    loadLoginLogDataPre(table);
     //最少等待1秒钟
     setTimeout(function () {
         //加载数据
-        loadLogDataDo(data,table);
+        loadLoginLogDataDo(data,table);
         //去除loading
         pop_off();
     },1000);
@@ -290,13 +254,13 @@ function loadLogData(data) {
  * @param data
  * @param table
  */
-function loadLogDataDo(data,table) {
+function loadLoginLogDataDo(data,table) {
     let html = '';
-    if (null == logs || logs.length <= 0) {
+    if (null == loginLogs || loginLogs.length <= 0) {
         html = '<tr><td colspan="8" style="text-align: center;height: 50px;color: #888888">无数据，或数据加载失败</td></tr>';
     } else {
         let one = true;
-        for (let i = 0,len = logs.length; i < len; i++) {
+        for (let i = 0,len = loginLogs.length; i < len; i++) {
             let pre;
             if (one) {
                 pre = '<tr class="ky-data-tr-one">';
@@ -304,13 +268,11 @@ function loadLogDataDo(data,table) {
                 pre = '<tr class="ky-data-tr-two">';
             }
             one = !one;
-            let c = logs[i].process_access ? '<span class="ky-icon-green">成功</span>' : '<span class="ky-icon-red">失败</span>';
-            let fix = '<td>'+logs[i].id+'</td>' +
-                '                <td>'+logs[i].user_login+'</td>' +
-                '                <td>'+logs[i].request_url+'</td>' +
-                '                <td>'+logs[i].process_name+'</td>' +
-                '                <td>'+logs[i].data_type+'</td>' +
-                '                <td>'+logs[i].process_type+'</td>' +
+            let c = '<span class="ky-icon-green">'+getLoginType(loginLogs[i].login_type)+'</span>';
+            let fix = '<td>'+loginLogs[i].id+'</td>' +
+                '                <td>'+loginLogs[i].user_login+'</td>' +
+                '                <td>'+loginLogs[i].account_ip+'</td>' +
+                '                <td>'+loginLogs[i].account_address+'</td>' +
                 '                <td>'+c+'</td>' +
                 '                <td>' +
                 '                    <a class="ky-icon-green" href="#">详情</a>' +
@@ -321,4 +283,24 @@ function loadLogDataDo(data,table) {
         }
     }
     $(table).append(html);
+}
+
+/**
+ * 展示登录类型
+ * @param type
+ * @returns {string}
+ */
+function getLoginType(type) {
+    switch (type) {
+        case "PASSWORD_LOGIN":
+            return "密码登录";
+        case "PHONE_LOGIN":
+            return "手机登录";
+        case "THIRD_LOGIN":
+            return "第三方登录";
+        case "LOGOUT":
+            return "登出";
+        default:
+            return "";
+    }
 }

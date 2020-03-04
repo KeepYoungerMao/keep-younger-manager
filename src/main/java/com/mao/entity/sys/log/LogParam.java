@@ -1,5 +1,6 @@
-package com.mao.entity.sys;
+package com.mao.entity.sys.log;
 
+import com.mao.entity.Page;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class LogParam {
+public class LogParam extends Page {
 
     private Long user_id;           //用户id
     private String user_name;       //用户登录名
@@ -18,13 +19,5 @@ public class LogParam {
     private Long start_time;        //开始时间
     private Long end_time;          //结束时间
     private Boolean process_access; //操作是否成功
-    private Integer page;           //页码
-    private Long total;             //总页码数
-    private Integer limit;          //限制条数
-
-    public LogParam(){
-        this.page = 0;
-        this.limit = 0;
-    }
 
 }

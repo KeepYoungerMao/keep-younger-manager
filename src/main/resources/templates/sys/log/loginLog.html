@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+    <title>系统登录日志</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/static/css/global-keep-younger.ui.css}">
+    <link rel="stylesheet" th:href="@{/static/css/pop.css}">
+    <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
+</head>
+<style>
+    #userSearchBox{
+        position: relative;
+    }
+    #userSearch{
+        position: absolute;
+        top: 38px;
+        left: 10px;
+        z-index: 100;
+        background-color: #ffffff;
+        border: .05rem solid #888888;
+        width: 208px;
+    }
+    #userSearch li{
+        height: 30px;
+        cursor: pointer;
+        padding-left: 5px;
+        line-height: 30px;
+        color: #333333;
+    }
+    #userSearch li:hover{
+        background-color: #89cbff;
+        color: #ffffff;
+    }
+</style>
+<script th:inline="javascript">
+    let loginLogParam = [[${loginLogParam}]];
+    let loginLogs = [[${loginLogs}]];
+    console.log(loginLogParam);
+    console.log(loginLogs);
+</script>
+<body>
+<div th:replace="model/model::header"></div>
+<div th:replace="model/model::sidebar"></div>
+<div class="ky-container">
+    <div class="ky-container-header">
+            <span class="ky-container-header-nav">
+                <a class="ky-container-header-nav-back" th:href="@{/data}"><i class="fa fa-chevron-left"></i></a>
+                <a th:href="@{/}">首页</a>
+                <span> / </span>
+                <a th:href="@{/data}">系统管理</a>
+                <span> / </span>
+                <a th:href="@{/data/book}">系统登录日志管理</a>
+            </span>
+    </div>
+    <div class="ky-main">
+        <div class="ky-main-search-box">
+            <div id="userSearchBox" class="ky-main-search-item">
+                <input id="userId" type="text" data-id="" onblur="blurUserSearch()" placeholder="用户：不支持英文大小写">
+            </div>
+            <div class="ky-main-search-item">
+                <select id="loginType">
+                    <option value="">登录类型：所有</option>
+                    <option value="PASSWORD_LOGIN">登录类型：密码登录</option>
+                    <option value="PHONE_LOGIN">登录类型：手机登录</option>
+                    <option value="THIRD_LOGIN">登录类型：第三方登录</option>
+                    <option value="LOGOUT">登录类型：登出</option>
+                </select>
+            </div>
+            <div class="ky-main-search-item"><input id="startTime" type="date" placeholder="开始时间"></div>
+            <div class="ky-main-search-item"><input id="endTime" type="date" placeholder="结束时间"></div>
+            <button id="sysLoginLogSearch" type="button">查询</button>
+        </div>
+        <table class="ky-data-table" cellpadding="0" cellspacing="0">
+            <tr>
+                <th width="20%">序号</th>
+                <th width="15%">操作者</th>
+                <th width="15%">操作者ip</th>
+                <th width="15%">操作者城市</th>
+                <th width="15%">登陆类型</th>
+                <th width="20%">操作</th>
+            </tr>
+            <!--<tr class="ky-data-tr-one">
+                <td>4130954854400</td>
+                <td>admin</td>
+                <td>127.0.0.1</td>
+                <td>本机</td>
+                <td>密码登录</td>
+                <td>
+                    <a class="ky-icon-green" href="#">详情</a>
+                    <a class="ky-icon-red" href="#">删除</a>
+                </td>
+            </tr>-->
+        </table>
+        <div id="ky-page">
+            <label for="limitSelect">条数限制：</label>
+            <select id="limitSelect">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
+            <div id="pageShow">
+                <strong id="currentPage"></strong>
+                <strong> / </strong>
+                <strong id="totalPage"></strong>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/static/js/jquery-2.0.3.js}"></script>
+<script th:src="@{/static/js/pop.js}"></script>
+<script th:src="@{/static/js/page.js}"></script>
+<script th:src="@{/static/js/global-keep-younger.ui.js}"></script>
+<script th:src="@{/static/js/sys/log/loginLog.js}"></script>
+</html>
