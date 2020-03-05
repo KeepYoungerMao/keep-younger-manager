@@ -1,9 +1,6 @@
 package com.mao.web;
 
-import com.mao.entity.sys.log.Log;
-import com.mao.entity.sys.log.LogParam;
-import com.mao.entity.sys.log.LoginLog;
-import com.mao.entity.sys.log.LoginLogParam;
+import com.mao.entity.sys.log.*;
 import com.mao.service.log.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +47,19 @@ public class LogController {
         model.addAttribute("loginLogParam",loginLogParam);
         model.addAttribute("loginLogs",loginLogs);
         return "sys/log/loginLog";
+    }
+
+    /**
+     * 查询系统邮件日志列表
+     * @param emailLogParam 邮件日志参数
+     * @param model model
+     */
+    @RequestMapping("email")
+    public String sysEmailLog(EmailLogParam emailLogParam, Model model){
+        List<EmailLog> emailLogs = logService.getEmailLogs(emailLogParam);
+        model.addAttribute("emailLogParam",emailLogParam);
+        model.addAttribute("emailLogs",emailLogs);
+        return "sys/log/emailLog";
     }
 
 }

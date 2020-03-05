@@ -55,6 +55,8 @@ public class DefaultMailService implements MailService {
     /**
      * 发送模板邮件（异步执行）
      * html格式邮件
+     * properties为参数列表。参数列表需遵循选择模板中的参数列表。
+     * 并记录邮件日志
      * @param to 接收方
      * @param template 模板
      * @param properties 参数

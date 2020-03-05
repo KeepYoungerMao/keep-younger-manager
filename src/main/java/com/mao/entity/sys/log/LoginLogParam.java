@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 登录日志信息
+ * 登录日志参数信息
  * @author zongx at 2020/3/4 15:24
  */
 @Getter

@@ -26,4 +26,7 @@ public interface LogService {
     //查询系统登录日志（根据用户id、登陆类型、登陆时间、限制条数等）
     List<LoginLog> getLoginLogs(LoginLogParam loginLogParam);
 
+    //查询系统邮件日志（根据接收方、邮件类型、发送是否成功、发送时间）
+    List<EmailLog> getEmailLogs(EmailLogParam emailLogParam);
+
 }

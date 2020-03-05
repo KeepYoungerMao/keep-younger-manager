@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
 <script th:inline="javascript">
-    var menu = [[${menu}]];
+    let menu = [[${menu}]];
     console.log(menu);
     sessionStorage.setItem("menu",JSON.stringify(menu));
 </script>

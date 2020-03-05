@@ -164,4 +164,15 @@ public class DefaultLogService extends BaseService implements LogService {
         return loginLogs;
     }
 
+    /**
+     * 查询系统邮件日志列表
+     * @param emailLogParam 邮件日志参数
+     * @return 邮件日志列表
+     */
+    @Override
+    public List<EmailLog> getEmailLogs(EmailLogParam emailLogParam) {
+        //TODO search method
+        return null;
+    }
+
 }
