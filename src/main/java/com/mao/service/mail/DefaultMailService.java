@@ -1,5 +1,8 @@
 package com.mao.service.mail;
 
+import com.mao.config.IdBuilder;
+import com.mao.entity.sys.log.EmailLog;
+import com.mao.service.log.LogService;
 import com.mao.util.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -16,15 +19,28 @@ import java.util.Map;
 @Service
 public class DefaultMailService implements MailService {
 
+    /**
+     * thymeleaf模板引擎
+     */
     private TemplateEngine templateEngine;
+    private LogService logService;
+    private IdBuilder idBuilder;
 
     @Autowired
     public void setTemplateEngine(TemplateEngine templateEngine){
         this.templateEngine = templateEngine;
     }
+    @Autowired
+    public void setLogService(LogService logService){
+        this.logService = logService;
+    }
+    @Autowired
+    public void setIdBuilder(IdBuilder idBuilder){
+        this.idBuilder = idBuilder;
+    }
 
     /**
-     * 发送邮件（异步执行）
+     * 发送普通邮件（异步执行）
      * @param to 接收方
      * @param subject 标题
      * @param text 内容
@@ -32,14 +48,13 @@ public class DefaultMailService implements MailService {
     @Async
     @Override
     public void sendMail(String to, String subject, String text) {
-        System.out.println("当前执行线程："+Thread.currentThread().getName());
         boolean success = MailUtil.sendMail(to,subject,text,false);
         System.out.println(success);
     }
 
     /**
-     * 发送模板邮件（异步）
-     * html格式右键
+     * 发送模板邮件（异步执行）
+     * html格式邮件
      * @param to 接收方
      * @param template 模板
      * @param properties 参数
@@ -47,15 +62,22 @@ public class DefaultMailService implements MailService {
     @Async
     @Override
     public void sendMail(String to, MailTemplate template, Map<String, Object> properties) {
-        System.out.println("当前执行线程："+Thread.currentThread().getName());
+        //整合参数，使用thymeleaf模板生成内容
         Context context = new Context();
         String[] params = template.getParams();
         for (String param : params)
             if (properties.containsKey(param))
                 context.setVariable(param,properties.get(param));
         String process = templateEngine.process(template.getTemplate(),context);
+        //记录邮件刚发送的时间
+        Long date = System.currentTimeMillis();
+        //邮件发送
         boolean success = MailUtil.sendMail(to,template.getSubject(),process,true);
-        System.out.println(success);
+        //收集日志数据
+        long id = idBuilder.getInstance().nextId();
+        EmailLog emailLog = new EmailLog(id,to,template.name(),success,date);
+        //日志的保存
+        logService.saveEmailLog(emailLog);
     }
 
 }

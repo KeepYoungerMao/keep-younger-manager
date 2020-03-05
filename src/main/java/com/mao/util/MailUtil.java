@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
+ * 邮件发送 SMTP发送
  * @author mao by 11:11 2020/3/5
  */
 public class MailUtil {

@@ -107,4 +107,10 @@
         </if>
     </select>
 
+    <!-- save email log data -->
+    <insert id="saveEmailLog" parameterType="com.mao.entity.sys.log.EmailLog">
+        INSERT INTO sys_email_log(`id`,`email`,`type`,`success`,`date`)
+        VALUE(#{id},#{email},#{type},#{success},#{date})
+    </insert>
+
 </mapper>

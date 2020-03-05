@@ -125,6 +125,15 @@ public class DefaultLogService extends BaseService implements LogService {
     }
 
     /**
+     * 邮件日志的保存
+     * @param emailLog 邮件日志数据
+     */
+    @Override
+    public void saveEmailLog(EmailLog emailLog) {
+        logMapper.saveEmailLog(emailLog);
+    }
+
+    /**
      * 查询系统操作日志
      * @param logParam 日志请求参数
      * @return 系统操作日志列表

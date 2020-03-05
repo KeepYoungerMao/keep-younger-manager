@@ -14,6 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 异步线程池配置
+ * 异步方法执行会另起线程执行。线程池提供
  * @author mao by 11:47 2020/3/5
  */
 @Configuration
@@ -30,6 +31,10 @@ public class AsyncTaskPoolConfig {
     private String namePreFix;
     private int keepAlive;
 
+    /**
+     * 线程执行器
+     * @return Executor
+     */
     @Bean
     public Executor taskExecutor(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

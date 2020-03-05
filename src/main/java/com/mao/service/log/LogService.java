@@ -17,6 +17,9 @@ public interface LogService {
     //用户登录登出日志的保存
     void saveLoginLog(HttpServletRequest request, String username, LoginEnum type);
 
+    //保存邮件日志
+    void saveEmailLog(EmailLog emailLog);
+
     //查询系统操作日志(根据用户id，数据类型，操作类型，操作时间，限制条数等)
     List<Log> getLogs(LogParam logParam);
 

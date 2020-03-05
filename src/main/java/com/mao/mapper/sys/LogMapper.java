@@ -1,9 +1,6 @@
 package com.mao.mapper.sys;
 
-import com.mao.entity.sys.log.Log;
-import com.mao.entity.sys.log.LogParam;
-import com.mao.entity.sys.log.LoginLog;
-import com.mao.entity.sys.log.LoginLogParam;
+import com.mao.entity.sys.log.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -56,5 +53,11 @@ public interface LogMapper {
      * @return total page
      */
     Long getLoginLogTotalPage(LoginLogParam loginLogParam);
+
+    /**
+     * save email log data
+     * @param emailLog email log data
+     */
+    void saveEmailLog(EmailLog emailLog);
 
 }
