@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2"/>
+    <title>注册邮箱验证</title>
+</head>
+<body>
+<p style="font-size: 20px;font-weight: bolder;text-indent: 25px;">欢迎您注册KeepYounger！</p>
+<p style="margin-top: 30px;text-indent: 25px;">您的验证码为：<span style="font-size: 16px;font-weight: bold;color: #ff5108;" th:text="${code}"></span></p>
+<p style="margin-top: 20px;text-indent: 25px;color: #666666">温馨提示：此验证码只在注册时有效。保留时间10分钟，请您尽快完成注册。</p>
+</body>
+
+</html>
