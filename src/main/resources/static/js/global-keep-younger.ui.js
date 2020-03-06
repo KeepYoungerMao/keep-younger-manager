@@ -244,6 +244,7 @@ function add0(m) {
 
 /**
  * 时间戳转换
+ * 转换为：yyyy-MM-dd
  * @param now
  * @returns {string}
  */

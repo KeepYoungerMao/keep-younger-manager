@@ -171,8 +171,13 @@ public class DefaultLogService extends BaseService implements LogService {
      */
     @Override
     public List<EmailLog> getEmailLogs(EmailLogParam emailLogParam) {
-        //TODO search method
-        return null;
+        Integer page = emailLogParam.getPage();
+        transPageParam(emailLogParam);
+        Long total = logMapper.getEmailLogTotalPage(emailLogParam);
+        emailLogParam.setTotal(total > 0 ? SU.ceil(total,emailLogParam.getLimit()) : 1);
+        List<EmailLog> emailLogs = logMapper.getEmailLogs(emailLogParam);
+        emailLogParam.setPage(page);
+        return emailLogs;
     }
 
 }

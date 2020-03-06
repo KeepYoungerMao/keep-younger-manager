@@ -60,4 +60,18 @@ public interface LogMapper {
      */
     void saveEmailLog(EmailLog emailLog);
 
+    /**
+     * search email logs data
+     * @param emailLogParam param data
+     * @return email logs data
+     */
+    List<EmailLog> getEmailLogs(EmailLogParam emailLogParam);
+
+    /**
+     * search email log total page
+     * @param emailLogParam param data
+     * @return email log total page
+     */
+    Long getEmailLogTotalPage(EmailLogParam emailLogParam);
+
 }
