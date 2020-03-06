@@ -13,10 +13,10 @@ import javax.mail.internet.MimeMessage;
  */
 public class MailUtil {
 
-    private static final String HOST = "smtp.qq.com";
+    private static final String HOST = "";
     private static final int PORT = 25;
-    private static final String USERNAME = "1607293758@qq.com";
-    private static final String PASSWORD = "salhsyprytrnhdcb";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
     private static final String DEFAULT_ENCODING = "UTF-8";
 
     private volatile static JavaMailSender javaMailSender;
