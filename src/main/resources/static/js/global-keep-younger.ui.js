@@ -24,14 +24,16 @@ $(function () {
 
 /**
  * 菜单加载
+ * 从缓存中获取菜单数据
+ * 获取当前url。根据当前url显示菜单列表
  */
 function loadMenu() {
-    var menuJson = sessionStorage.getItem("menu");
+    let menuJson = sessionStorage.getItem("menu");
     if (null != menuJson) {
-        var currentMenu = window.location.pathname;
-        var menu = JSON.parse(menuJson);
-        var id = 0,pid = 0,has = false;
-        for (var i = 0; i < menu.length; i++) {
+        let currentMenu = window.location.pathname;
+        let menu = JSON.parse(menuJson);
+        let id = 0,pid = 0,has = false;
+        for (let i = 0; i < menu.length; i++) {
             if (menu[i].url === currentMenu) {
                 id = menu[i].id;
                 pid = menu[i].pid;
@@ -40,9 +42,9 @@ function loadMenu() {
             }
         }
         if (has) {
-            var title = '';
-            var menuList = '';
-            for (var j = 0; j < menu.length; j++) {
+            let title = '';
+            let menuList = '';
+            for (let j = 0; j < menu.length; j++) {
                 if (menu[j].id === pid) {
                     title += '<span>'+menu[j].name+'</span><i class="fa fa-'+menu[j].icon+' ky-sidebar-menu-i-active"></i>';
                 }
@@ -69,8 +71,8 @@ function UILoad() {
     $(".ky-header-fun").css("height",(HEIGHT-50)+'px');
     //菜单的展开与关闭
     $(".ky-sidebar-hold i").on("click",function () {
-        var type = $(this).attr("data-type");
-        console.log(type);
+        let type = $(this).attr("data-type");
+        //console.log(type);
         if("on" === type){
             //设置缩小菜单栏
             $(this).parent().parent().css("width","64px");
@@ -104,13 +106,13 @@ function UILoad() {
             $(this).removeClass("fa-indent").addClass("fa-outdent");
         }
     });
-    var menu_time_out;
+    let menu_time_out;
     //鼠标放置菜单处动画
     $(".ky-sidebar-top").hover(function () {
         //鼠标移入
         menu_time_out = setTimeout(function () {
-            var sidebar = $(".ky-sidebar");
-            var type = $(sidebar).find(".ky-sidebar-hold i").attr("data-type");
+            let sidebar = $(".ky-sidebar");
+            let type = $(sidebar).find(".ky-sidebar-hold i").attr("data-type");
             if("off" === type){
                 //只有关闭状态下才操作
                 //设置展开菜单
@@ -126,7 +128,7 @@ function UILoad() {
     },function () {
         clearTimeout(menu_time_out);
         //鼠标移除
-        var type = $(this).parent().find(".ky-sidebar-hold i").attr("data-type");
+        let type = $(this).parent().find(".ky-sidebar-hold i").attr("data-type");
         if("off" === type){
             //只有关闭状态下才操作
             //设置缩小菜单栏
@@ -148,20 +150,20 @@ function UILoad() {
  * @param target 是否另起窗口
  */
 function ky_post_submit(url, params, target) {
-    var form = document.createElement("form");
+    let form = document.createElement("form");
     form.action = url;
     form.method = "post";
     form.style.display="none";
     if(target) {
         form.target = target;
     }
-    for (var x in params) {
-        var opt = document.createElement("input");
+    for (let x in params) {
+        let opt = document.createElement("input");
         opt.name = x;
         opt.value = params[x];
         form.appendChild(opt);
     }
-    var btn = document.createElement("input");
+    let btn = document.createElement("input");
     btn.type = "submit";
     form.appendChild(btn);
     document.body.appendChild(form);
@@ -224,8 +226,8 @@ $.ajaxSetup({
  * @return {string}
  */
 function dateFormat(timestamp){
-    var time = new Date(timestamp);
-    var y = time.getFullYear(),
+    let time = new Date(timestamp);
+    let y = time.getFullYear(),
         M = time.getMonth() + 1,
         d = time.getDate(),
         H = time.getHours(),

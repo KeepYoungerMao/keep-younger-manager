@@ -21,4 +21,7 @@ public class Book {
     private Integer dynasty_id;     //朝代id
     private Integer count;          //阅读频率
     private Boolean free;           //是否免费
+    private Boolean off_sale;       //是否下架
+    private Long update;            //更新日期
+    private Boolean delete;         //删除标识
 }

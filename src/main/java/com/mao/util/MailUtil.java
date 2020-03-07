@@ -15,8 +15,8 @@ public class MailUtil {
 
     private static final String HOST = "smtp.qq.com";
     private static final int PORT = 25;
-    private static final String USERNAME = "278980218@qq.com";
-    private static final String PASSWORD = "hyxxnilaidcduszh";
+    private static final String USERNAME = "766542913@qq.com";
+    private static final String PASSWORD = "jnhyuhbzgjlaskij";
     private static final String DEFAULT_ENCODING = "UTF-8";
 
     private volatile static JavaMailSender javaMailSender;

@@ -3,6 +3,55 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mao.mapper.data.BookMapper">
 
+    <!-- search books data -->
+    <select id="getBooks" parameterType="com.mao.entity.data.book.BookParam"
+            resultType="com.mao.entity.data.book.Book">
+        SELECT `id`,`name`,`auth`,`image`,`s_image`,`intro`,`type`,`type_id`,
+        `dynasty`,`dynasty_id`,`count`,`free`,`off_sale`,`update`,`delete`
+        FROM tt_book WHERE `delete` = FALSE
+        <if test="name != null and name != ''">
+            AND LOCATE(#{name},`name`) > 0
+        </if>
+        <if test="auth != null and auth != ''">
+            AND LOCATE(#{auth},`auth`) > 0
+        </if>
+        <if test="type != null and type > 0">
+            AND `type_id` = #{type}
+        </if>
+        <if test="dynasty != null and dynasty > 0">
+            AND `dynasty_id` = #{dynasty}
+        </if>
+        <if test="free != null">
+            AND `free` = #{free}
+        </if>
+        <if test="off_sale != null">
+            AND `off_sale` = #{off_sale}
+        </if>
+        ORDER BY `id` ASC LIMIT #{page},#{limit}
+    </select>
 
+    <!-- search books total page -->
+    <select id="getBookTotalPage" parameterType="com.mao.entity.data.book.BookParam"
+            resultType="java.lang.Long">
+        SELECT COUNT(`id`) FROM tt_book WHERE `delete` = FALSE
+        <if test="name != null and name != ''">
+            AND LOCATE(#{name},`name`) > 0
+        </if>
+        <if test="auth != null and auth != ''">
+            AND LOCATE(#{auth},`auth`) > 0
+        </if>
+        <if test="type != null and type > 0">
+            AND `type_id` = #{type}
+        </if>
+        <if test="dynasty != null and dynasty > 0">
+            AND `dynasty_id` = #{dynasty}
+        </if>
+        <if test="free != null">
+            AND `free` = #{free}
+        </if>
+        <if test="off_sale != null">
+            AND `off_sale` = #{off_sale}
+        </if>
+    </select>
 
 </mapper>

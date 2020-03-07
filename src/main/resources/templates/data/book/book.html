@@ -8,6 +8,12 @@
     <link rel="stylesheet" th:href="@{/static/css/global-keep-younger.ui.css}">
     <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
+<script th:inline="javascript">
+    let bookParam = [[${bookParam}]];
+    let books = [[${books}]];
+    console.log(bookParam);
+    console.log(books);
+</script>
 <body>
     <div th:replace="model/model::header"></div>
     <div th:replace="model/model::sidebar"></div>
@@ -26,8 +32,68 @@
             <div class="ky-main-search-box">
                 <div class="ky-main-search-item"><input id="bookName" type="text" placeholder="古籍名称"></div>
                 <div class="ky-main-search-item"><input id="bookAuth" type="text" placeholder="古籍作者"></div>
-                <div class="ky-main-search-item"><input id="bookType" type="text" placeholder="古籍类型"></div>
-                <div class="ky-main-search-item"><input id="bookDynasty" type="text" placeholder="古籍朝代"></div>
+                <div class="ky-main-search-item">
+                    <select id="bookType">
+                        <option value="">古籍类型：所有</option>
+                        <option value="1">古籍类型：传记</option>
+                        <option value="2">古籍类型：武侠</option>
+                        <option value="3">古籍类型：历史演义</option>
+                        <option value="4">古籍类型：军事</option>
+                        <option value="5">古籍类型：史记</option>
+                        <option value="6">古籍类型：神魔</option>
+                        <option value="7">古籍类型：地理</option>
+                        <option value="8">古籍类型：诗词</option>
+                        <option value="9">古籍类型：笔记</option>
+                        <option value="10">古籍类型：医学</option>
+                        <option value="11">古籍类型：小传</option>
+                        <option value="12">古籍类型：音乐</option>
+                        <option value="13">古籍类型：算术</option>
+                        <option value="14">古籍类型：评书</option>
+                        <option value="15">古籍类型：百科</option>
+                        <option value="16">古籍类型：佛教</option>
+                        <option value="17">古籍类型：风水</option>
+                        <option value="18">古籍类型：农业</option>
+                        <option value="19">古籍类型：其他</option>
+                    </select>
+                </div>
+                <div class="ky-main-search-item">
+                    <select id="bookDynasty">
+                        <option value="">古籍朝代：所有</option>
+                        <option value="1">古籍朝代：先秦</option>
+                        <option value="2">古籍朝代：秦朝</option>
+                        <option value="3">古籍朝代：汉朝</option>
+                        <option value="4">古籍朝代：三国时期</option>
+                        <option value="5">古籍朝代：晋朝</option>
+                        <option value="6">古籍朝代：南北朝</option>
+                        <option value="7">古籍朝代：隋朝</option>
+                        <option value="8">古籍朝代：唐朝</option>
+                        <option value="9">古籍朝代：五代十国</option>
+                        <option value="10">古籍朝代：宋朝</option>
+                        <option value="11">古籍朝代：金（南宋）朝</option>
+                        <option value="12">古籍朝代：元朝</option>
+                        <option value="13">古籍朝代：明朝</option>
+                        <option value="14">古籍朝代：清朝</option>
+                        <option value="15">古籍朝代：近代</option>
+                        <option value="16">古籍朝代：现代</option>
+                    </select>
+                </div>
+                <button id="bookSearch" type="button">查询</button>
+            </div>
+            <div class="ky-main-search-box">
+                <div class="ky-main-search-item">
+                    <select id="bookFree">
+                        <option value="">是否免费：所有</option>
+                        <option value="true">是否免费：是</option>
+                        <option value="false">是否免费：否</option>
+                    </select>
+                </div>
+                <div class="ky-main-search-item">
+                    <select id="bookOffSale">
+                        <option value="">是否下架：所有</option>
+                        <option value="true">是否下架：是</option>
+                        <option value="false">是否下架：否</option>
+                    </select>
+                </div>
             </div>
             <table class="ky-data-table" cellpadding="0" cellspacing="0">
                 <tr>
@@ -49,32 +115,7 @@
                     <td>
                         <a class="ky-icon-green" href="#">详情</a>
                         <a class="ky-icon-orange" href="#">上架</a>
-                        <a class="ky-icon-red" href="#">删除</a>
-                    </td>
-                </tr>
-                <tr class="ky-data-tr-two">
-                    <td>4130954854400</td>
-                    <td>一枕奇</td>
-                    <td>华阳散人</td>
-                    <td>传记</td>
-                    <td>明朝</td>
-                    <td><span class="ky-icon-green">免费</span><span class="ky-icon-red">下架</span></td>
-                    <td>
-                        <a class="ky-icon-green" href="#">详情</a>
-                        <a class="ky-icon-orange" href="#">上架</a>
-                        <a class="ky-icon-red" href="#">删除</a>
-                    </td>
-                </tr>
-                <tr class="ky-data-tr-one">
-                    <td>4130954854400</td>
-                    <td>一枕奇</td>
-                    <td>华阳散人</td>
-                    <td>传记</td>
-                    <td>明朝</td>
-                    <td><span class="ky-icon-green">免费</span><span class="ky-icon-red">下架</span></td>
-                    <td>
-                        <a class="ky-icon-green" href="#">详情</a>
-                        <a class="ky-icon-orange" href="#">上架</a>
+                        <a class="ky-icon-orange" href="#">收费</a>
                         <a class="ky-icon-red" href="#">删除</a>
                     </td>
                 </tr>
@@ -83,5 +124,8 @@
     </div>
 </body>
 <script th:src="@{/static/js/jquery-2.0.3.js}"></script>
+<script th:src="@{/static/js/pop.js}"></script>
+<script th:src="@{/static/js/page.js}"></script>
 <script th:src="@{/static/js/global-keep-younger.ui.js}"></script>
+<script th:src="@{/static/js/data/book.js}"></script>
 </html>
