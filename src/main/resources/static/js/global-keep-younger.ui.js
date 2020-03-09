@@ -1,6 +1,10 @@
 //javascript for global keep younger UI
 //2020-01-10
 
+//global-keep-younger.ui.js is a global javascript which all html will be used
+//and chat.js too
+document.write("<script type='text/javascript' src='/static/js/chat.js'></script>");
+
 let WIDTH = window.innerWidth;
 let HEIGHT = window.innerHeight;
 

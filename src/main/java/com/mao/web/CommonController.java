@@ -1,8 +1,10 @@
 package com.mao.web;
 
+import com.mao.entity.sys.User;
 import com.mao.service.sys.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,9 @@ public class CommonController implements ErrorController {
     @RequestMapping({"","index"})
     public String index(Model model){
         model.addAttribute("menu",systemService.getAllMenu());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) principal;
+        model.addAttribute("username",user.getUsername());
         return "index";
     }
 

@@ -6,6 +6,8 @@
     <title>模板文件</title>
 </head>
 <body>
+
+<!-- header -->
 <div class="ky-header-nav" th:fragment="header">
     <ul>
         <li class="ky-header-logo">
@@ -26,7 +28,7 @@
                 </div>
             </div>
         </li>
-        <li class="ky-header-tool"><a href="/"><i class="fa fa-question-circle-o"></i></a></li>
+        <li class="ky-header-tool"><a href="javascript:chatClick();"><i class="fa fa-commenting-o"></i></a></li>
         <li class="ky-header-tool"><a href="/"><i class="fa fa-clock-o"></i></a></li>
         <li class="ky-header-tool"><a href="/"><i class="fa fa-envelope-o"></i></a></li>
         <li class="ky-header-user">
@@ -66,7 +68,10 @@
             </ul>
         </li>
     </ul>
+    <div th:replace="/model/model::chatBox"></div>
 </div>
+
+<!-- side -->
 <div class="ky-sidebar" th:fragment="sidebar">
     <div class="ky-sidebar-top">
         <h2 class="ky-sidebar-headline">
@@ -80,5 +85,53 @@
         <i class="fa fa-outdent" data-type="on"></i>
     </div>
 </div>
+
+<!-- chat box -->
+<div id="chat-box" class="ky-chat-body" th:fragment="chatBox">
+    <div class="ky-chat-box">
+        <div><button onclick="chatClick();">关闭</button></div>
+        <div class="ky-chat-container">
+            <div class="ky-message-box">
+                <div class="ky-message-left">
+                    <div class="ky-message-user">
+
+                    </div>
+                    <div class="ky-message-pop">
+                        <div class="ky-message-username">
+                            <span>admin</span>
+                        </div>
+                        <div class="ky-message-pop-box">浔阳江头夜送客，枫叶狄花秋瑟瑟。</div>
+                    </div>
+                </div>
+                <div class="ky-message-left">
+                    <div class="ky-message-user">
+
+                    </div>
+                    <div class="ky-message-pop">
+                        <div class="ky-message-username">
+                            <span>admin</span>
+                        </div>
+                        <div class="ky-message-pop-box">浔阳江头夜。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ky-chat-bar">
+                <div class="ky-chat-bar-item" title="当前聊天">
+                    <a href="#"><i class="fa fa-commenting-o"></i></a>
+                </div>
+                <div class="ky-chat-bar-item" title="聊天室">
+                    <a href="#"><i class="fa fa-comments-o"></i></a>
+                </div>
+                <div class="ky-chat-bar-item" title="系统消息">
+                    <a href="#"><i class="fa fa-podcast"></i></a>
+                </div>
+                <div class="ky-chat-bar-item" title="人脉">
+                    <a href="#"><i class="fa fa-user-o"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
