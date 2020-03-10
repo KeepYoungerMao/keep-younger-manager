@@ -1,11 +1,11 @@
 let ws = null;
+const urlPrefix = "ws://"+window.location.host+"/chat/";
 
 $(document).ready(function(){
     //登录名
     let username = sessionStorage.getItem("username");
-    console.log(username);
+    //console.log(username);
     //连接前缀
-    let urlPrefix ='ws://localhost:8080/chat/';
     let url = urlPrefix + username;
     //拼凑链接
     ws = new WebSocket(url);
@@ -23,6 +23,14 @@ $(document).ready(function(){
     $('#chat-send').click(function(){
         sendMessage();
     });
+
+    //公共聊天室消息发送回车响应
+    $("#chat-message-input").bind('keypress',function(event){
+        if(event.keyCode == 13) {
+            sendMessage();
+        }
+    });
+
     // 退出聊天室
     $('#btn_exit').click(function(){
         if(ws){
@@ -60,8 +68,12 @@ function chatClick() {
     chatOpen = !chatOpen;
 }
 
+/**
+ * 服务端发送消息的处理
+ * @param data
+ */
 function makeData(data) {
-    console.log(data);
+    //console.log(data);
     data = JSON.parse(data);
     switch (data.type){
         case "TEXT":
@@ -72,6 +84,11 @@ function makeData(data) {
     }
 }
 
+/**
+ * 添加文本消息类
+ * @param user 用户名
+ * @param message 消息
+ */
 function appendTextMessage(user, message) {
     let box = $(".ky-message-box");
     let html = '<div class="ky-message-left">'+
@@ -87,12 +104,9 @@ function appendTextMessage(user, message) {
     $(box).scrollTop($(box).prop('scrollHeight'));
 }
 
-$("#chat-message-input").bind('keypress',function(event){
-    if(event.keyCode == 13) {
-        sendMessage();
-    }
-});
-
+/**
+ * 客户端向服务端发送消息
+ */
 function sendMessage() {
     let input = $('#chat-message-input');
     let msg = $(input).val();

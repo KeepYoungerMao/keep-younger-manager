@@ -36,9 +36,9 @@ li{
 input::-webkit-input-placeholder {
     color: #aaaaaa;
 }
-input::-ms-input-placeholder {
+/*input::-ms-input-placeholder {
     color: #aaaaaa;
-}
+}*/
 
 
 /* some span-icon button icon */
@@ -600,6 +600,7 @@ a.ky-icon-gray:hover{
     height: 30px;
     border: 1px solid #006eff;
     box-sizing: border-box;
+    cursor: pointer;
 }
 .ky-chat-bar-item{
     width: 24%;
