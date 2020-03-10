@@ -1,34 +1,27 @@
+let ws = null;
+
 $(document).ready(function(){
+    //登录名
     let username = sessionStorage.getItem("username");
     console.log(username);
+    //连接前缀
     let urlPrefix ='ws://localhost:8080/chat/';
-    let ws = null;
-    $('#btn_join').click(function(){
-        let username = $('#in_user_name').val();
-        let url = urlPrefix + username;
-        ws = new WebSocket(url);
-        ws.onopen = function () {
-            console.log("建立 web socket 连接...");
-        };
-        ws.onmessage = function(event){
-            //服务端发送的消息
-            $('#message_content').append(event.data+'\n');
-        };
-        ws.onclose = function(){
-            $('#message_content').append('用户['+username+'] 已经离开聊天室!');
-            console.log("关闭 web socket 连接...");
-        }
-    });
+    let url = urlPrefix + username;
+    //拼凑链接
+    ws = new WebSocket(url);
+    ws.onopen = function () {
+        console.log("建立 web socket 连接...");
+    };
+    ws.onmessage = function(event){
+        //服务端发送的消息
+        makeData(event.data);
+    };
+    ws.onclose = function(){
+        console.log("关闭 web socket 连接...");
+    };
     //客户端发送消息到服务器
-    $('#btn_send_all').click(function(){
-        let msg = $('#in_room_msg').val();
-        if(ws){
-            let message = {
-                type: "TEXT",
-                message: msg
-            };
-            ws.send(JSON.stringify(message));
-        }
+    $('#chat-send').click(function(){
+        sendMessage();
     });
     // 退出聊天室
     $('#btn_exit').click(function(){
@@ -65,4 +58,50 @@ function chatClick() {
         $(".ky-chat-box").css("right","0");
     }
     chatOpen = !chatOpen;
+}
+
+function makeData(data) {
+    console.log(data);
+    data = JSON.parse(data);
+    switch (data.type){
+        case "TEXT":
+            appendTextMessage(data.user,data.message);
+            break;
+        default:
+            break;
+    }
+}
+
+function appendTextMessage(user, message) {
+    let box = $(".ky-message-box");
+    let html = '<div class="ky-message-left">'+
+            '<div class="ky-message-user"></div>'+
+                '<div class="ky-message-pop">'+
+                    '<div class="ky-message-username">'+
+                        '<span>'+user+'</span>'+
+                    '</div>'+
+                    '<div class="ky-message-pop-box">'+message+'</div>'+
+                '</div>'+
+        '</div>';
+    $(box).append(html);
+    $(box).scrollTop($(box).prop('scrollHeight'));
+}
+
+$("#chat-message-input").bind('keypress',function(event){
+    if(event.keyCode == 13) {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    let input = $('#chat-message-input');
+    let msg = $(input).val();
+    if(ws){
+        let message = {
+            type: "TEXT",
+            message: msg
+        };
+        ws.send(JSON.stringify(message));
+        $(input).val('');
+    }
 }

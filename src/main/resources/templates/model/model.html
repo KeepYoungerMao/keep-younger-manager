@@ -89,8 +89,10 @@
 <!-- chat box -->
 <div id="chat-box" class="ky-chat-body" th:fragment="chatBox">
     <div class="ky-chat-box">
-        <div><button onclick="chatClick();">关闭</button></div>
         <div class="ky-chat-container">
+            <div class="ky-chat-close">
+                <a href="javascript:chatClick();"><i class="fa fa-arrow-right"></i></a>
+            </div>
             <div class="ky-message-box">
                 <div class="ky-message-left">
                     <div class="ky-message-user">
@@ -115,11 +117,15 @@
                     </div>
                 </div>
             </div>
+            <div class="ky-chat-input-box">
+                <input id="chat-message-input" type="text" placeholder="输入聊天信息">
+                <button id="chat-send">发送</button>
+            </div>
             <div class="ky-chat-bar">
                 <div class="ky-chat-bar-item" title="当前聊天">
                     <a href="#"><i class="fa fa-commenting-o"></i></a>
                 </div>
-                <div class="ky-chat-bar-item" title="聊天室">
+                <div class="ky-chat-bar-item ky-chat-bar-item-active" title="聊天室">
                     <a href="#"><i class="fa fa-comments-o"></i></a>
                 </div>
                 <div class="ky-chat-bar-item" title="系统消息">
