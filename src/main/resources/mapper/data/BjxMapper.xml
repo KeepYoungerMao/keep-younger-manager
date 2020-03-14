@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.data.BjxMapper">
+
+    <!-- search bjx data list -->
+    <select id="getBjx" parameterType="com.mao.entity.data.bjx.BjxParam"
+            resultType="com.mao.entity.data.bjx.Bjx">
+        SELECT `id`,`name`,`py`,`update` FROM tt_bjx WHERE `delete` = FALSE
+        <if test="name != null and name != ''">
+            AND LOCATE(#{name},`name`) > 0
+        </if>
+        <if test="py != null and py != ''">
+            AND `py` = #{py}
+        </if>
+        ORDER BY `id` ASC LIMIT #{page},#{limit}
+    </select>
+
+    <!-- search bjx total page -->
+    <select id="getBjxTotalPage" parameterType="com.mao.entity.data.bjx.BjxParam"
+            resultType="java.lang.Long">
+        SELECT COUNT(`id`) FROM tt_bjx WHERE `delete` = FALSE
+        <if test="name != null and name != ''">
+            AND LOCATE(#{name},`name`) > 0
+        </if>
+        <if test="py != null and py != ''">
+            AND `py` = #{py}
+        </if>
+    </select>
+
+</mapper>
