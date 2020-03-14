@@ -6,6 +6,7 @@
     <title>古籍管理</title>
     <link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
     <link rel="stylesheet" th:href="@{/static/css/global-keep-younger.ui.css}">
+    <link rel="stylesheet" th:href="@{/static/css/pop.css}">
     <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
 <script th:inline="javascript">
@@ -75,6 +76,7 @@
                         <option value="14">古籍朝代：清朝</option>
                         <option value="15">古籍朝代：近代</option>
                         <option value="16">古籍朝代：现代</option>
+                        <option value="17">古籍朝代：其他</option>
                     </select>
                 </div>
                 <button id="bookSearch" type="button">查询</button>
@@ -98,11 +100,11 @@
             <table class="ky-data-table" cellpadding="0" cellspacing="0">
                 <tr>
                     <th width="14%">序号</th>
-                    <th width="15%">名称</th>
+                    <th width="18%">名称</th>
                     <th width="15%">作者</th>
                     <th width="10%">类型</th>
                     <th width="10%">朝代</th>
-                    <th width="18%">状态</th>
+                    <th width="15%">状态</th>
                     <th width="18%">操作</th>
                 </tr>
                 <tr class="ky-data-tr-one">
@@ -120,6 +122,19 @@
                     </td>
                 </tr>
             </table>
+            <div id="ky-page">
+                <label for="limitSelect">条数限制：</label>
+                <select id="limitSelect">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+                <div id="pageShow">
+                    <strong id="currentPage"></strong>
+                    <strong> / </strong>
+                    <strong id="totalPage"></strong>
+                </div>
+            </div>
         </div>
     </div>
 </body>

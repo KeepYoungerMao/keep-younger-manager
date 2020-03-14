@@ -20,25 +20,25 @@ $(document).ready(function(){
         console.log("关闭 web socket 连接...");
     };
     //客户端发送消息到服务器
-    $('#chat-send').click(function(){
+    $('#chat-send').on("click",function(){
         sendMessage();
     });
 
     //公共聊天室消息发送回车响应
     $("#chat-message-input").bind('keypress',function(event){
-        if(event.keyCode == 13) {
+        if(event.keyCode === 13) {
             sendMessage();
         }
     });
 
     // 退出聊天室
-    $('#btn_exit').click(function(){
+    $('#btn_exit').on("click",function(){
         if(ws){
             ws.close();
         }
     });
 
-    $("#btn_send_point").click(function() {
+    $("#btn_send_point").on("click",function() {
         let sender = $("#in_sender").val();
         let receive = $("#in_receive").val();
         let message = $("#in_point_message").val();
@@ -110,7 +110,7 @@ function appendTextMessage(user, message) {
 function sendMessage() {
     let input = $('#chat-message-input');
     let msg = $(input).val();
-    if(ws){
+    if(ws && msg){
         let message = {
             type: "TEXT",
             message: msg
