@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2"/>
+    <title>古籍管理</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/static/css/global-keep-younger.ui.css}">
+    <link rel="stylesheet" th:href="@{/static/css/pop.css}">
+    <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
+</head>
+<script th:inline="javascript">
+    let bookParam = [[${bookParam}]];
+    let books = [[${books}]];
+    console.log(bookParam);
+    console.log(books);
+</script>
+<body>
+<div th:replace="model/model::header"></div>
+<div th:replace="model/model::sidebar"></div>
+<div class="ky-container">
+    <div class="ky-container-header">
+            <span class="ky-container-header-nav">
+                <a class="ky-container-header-nav-back" th:href="@{/data}"><i class="fa fa-chevron-left"></i></a>
+                <a th:href="@{/}">首页</a>
+                <span> / </span>
+                <a th:href="@{/data}">数据管理</a>
+                <span> / </span>
+                <a th:href="@{/data/book}">古籍管理</a>
+            </span>
+    </div>
+    <div class="ky-main">
+        <table class="ky-data-table" cellpadding="0" cellspacing="0">
+            <tr>
+                <th width="14%">序号</th>
+                <th width="18%">名称</th>
+                <th width="15%">作者</th>
+                <th width="10%">类型</th>
+                <th width="10%">朝代</th>
+                <th width="15%">状态</th>
+                <th width="18%">操作</th>
+            </tr>
+            <tr class="ky-data-tr-one">
+                <td>4130954854400</td>
+                <td>一枕奇</td>
+                <td>华阳散人</td>
+                <td>传记</td>
+                <td>明朝</td>
+                <td><span class="ky-icon-green">免费</span><span class="ky-icon-red">下架</span></td>
+                <td>
+                    <a class="ky-icon-green" href="#">详情</a>
+                    <a class="ky-icon-orange" href="#">上架</a>
+                    <a class="ky-icon-orange" href="#">收费</a>
+                    <a class="ky-icon-red" href="#">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+<script th:src="@{/static/js/jquery-2.0.3.js}"></script>
+<script th:src="@{/static/js/pop.js}"></script>
+<script th:src="@{/static/js/page.js}"></script>
+<script th:src="@{/static/js/global-keep-younger.ui.js}"></script>
+<script th:src="@{/static/js/data/book.js}"></script>
+</html>

@@ -6,7 +6,7 @@
     <!-- search books data -->
     <select id="getBooks" parameterType="com.mao.entity.data.book.BookParam"
             resultType="com.mao.entity.data.book.Book">
-        SELECT `id`,`name`,`auth`,`image`,`s_image`,`intro`,`type`,`type_id`,
+        SELECT `id`,`name`,`auth`,`image`,`s_image`,`type`,`type_id`,
         `dynasty`,`dynasty_id`,`count`,`free`,`off_sale`,`update`,`delete`
         FROM tt_book WHERE `delete` = FALSE
         <if test="name != null and name != ''">
@@ -52,6 +52,13 @@
         <if test="off_sale != null">
             AND `off_sale` = #{off_sale}
         </if>
+    </select>
+
+    <!-- search book chapter list -->
+    <select id="getBookChapters" parameterType="java.lang.Long"
+            resultType="com.mao.entity.data.book.BookChapter">
+        SELECT `id`,`order`,`name`,`book_id` FROM tt_book_chapter
+        WHERE `book_id` = #{id} ORDER BY `order` ASC
     </select>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.mao.service.data.book;
 
 import com.mao.entity.data.book.Book;
+import com.mao.entity.data.book.BookChapter;
 import com.mao.entity.data.book.BookParam;
 
 import java.util.List;
@@ -17,5 +18,21 @@ public interface BookService {
      * @return 古籍列表
      */
     List<Book> getBooks(BookParam bookParam);
+
+    /**
+     * 古籍详情的改动
+     * @param id 古籍id
+     * @param book 新建或更新时的传入
+     * @param type 改动类型
+     * @return 古籍详情
+     */
+    Book changeBook(Long id, Book book, String type);
+
+    /**
+     * 查询古籍章节列表
+     * @param id 古籍id
+     * @return 古籍章节列表
+     */
+    List<BookChapter> getBookChapters(Long id);
 
 }

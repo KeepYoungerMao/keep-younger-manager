@@ -3,6 +3,7 @@ package com.mao.web;
 import com.mao.entity.data.bjx.Bjx;
 import com.mao.entity.data.bjx.BjxParam;
 import com.mao.entity.data.book.Book;
+import com.mao.entity.data.book.BookChapter;
 import com.mao.entity.data.book.BookParam;
 import com.mao.entity.data.buddhist.Buddhist;
 import com.mao.entity.data.buddhist.BuddhistParam;
@@ -52,6 +53,34 @@ public class DataController {
         model.addAttribute("bookParam",bookParam);
         model.addAttribute("books",books);
         return "data/book/book";
+    }
+
+    /**
+     * 古籍详情改动
+     * 查询古籍详情 或 新建古籍数据
+     * 详情界面参数：type：类型：查看详情进入；新建进入；更新成功进入；新建成功进入；
+     * @param id 古籍id， 若无古籍id，则为新建古籍数据
+     * @return 古籍详情，古籍详情参数
+     */
+    @RequestMapping("book/{id}")
+    public String getBookSrc(@PathVariable(name = "id", required = false) Long id, Book book,
+                             String type, Model model){
+        Book changeBook = bookService.changeBook(id, book, type);
+        model.addAttribute("changeType", type);
+        model.addAttribute("book",changeBook);
+        return "data/book/bookSrc";
+    }
+
+    /**
+     * 查询古籍章节列表
+     * @param id 古籍id
+     * @return 古籍章节列表
+     */
+    @RequestMapping("book/chapter/{id}")
+    public String saveBook(@PathVariable("id") Long id, Model model){
+        List<BookChapter> bookChapters = bookService.getBookChapters(id);
+        model.addAttribute("bookChapters",bookChapters);
+        return "data/book/bookChapter";
     }
 
     /**

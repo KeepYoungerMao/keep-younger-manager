@@ -1,8 +1,10 @@
 package com.mao.mapper.data;
 
 import com.mao.entity.data.book.Book;
+import com.mao.entity.data.book.BookChapter;
 import com.mao.entity.data.book.BookParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,5 +30,12 @@ public interface BookMapper {
      * @return total page
      */
     Long getBookTotalPage(BookParam bookParam);
+
+    /**
+     * search book chapter data list
+     * @param id book chapter id
+     * @return book chapter data list
+     */
+    List<BookChapter> getBookChapters(@Param("id") Long id);
 
 }
