@@ -9,6 +9,8 @@ import java.util.Collection;
  */
 public class SU {
 
+    public static final String UTF8 = "utf-8";
+
     /**
      * 判断字符串是否为空
      * 仿写commons-lang3

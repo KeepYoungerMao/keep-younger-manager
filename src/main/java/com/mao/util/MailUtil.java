@@ -17,7 +17,6 @@ public class MailUtil {
     private static final int PORT = 25;
     private static final String USERNAME = "766542913@qq.com";
     private static final String PASSWORD = "jnhyuhbzgjlaskij";
-    private static final String DEFAULT_ENCODING = "UTF-8";
 
     private volatile static JavaMailSender javaMailSender;
 
@@ -46,7 +45,7 @@ public class MailUtil {
         sender.setPort(PORT);
         sender.setUsername(USERNAME);
         sender.setPassword(PASSWORD);
-        sender.setDefaultEncoding(DEFAULT_ENCODING);
+        sender.setDefaultEncoding(SU.UTF8);
         return sender;
     }
 
