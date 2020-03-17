@@ -1,8 +1,10 @@
 package com.mao.service.data.book;
 
+import com.mao.entity.ViewType;
 import com.mao.entity.data.book.Book;
 import com.mao.entity.data.book.BookChapter;
 import com.mao.entity.data.book.BookParam;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -24,9 +26,8 @@ public interface BookService {
      * @param id 古籍id
      * @param book 新建或更新时的传入
      * @param type 改动类型
-     * @return 古籍详情
      */
-    Book changeBook(Long id, Book book, String type);
+    void changeBook(Long id, Book book, ViewType type, Model model);
 
     /**
      * 查询古籍章节列表

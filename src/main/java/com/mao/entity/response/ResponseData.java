@@ -1,4 +1,4 @@
-package com.mao.mapper.response;
+package com.mao.entity.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

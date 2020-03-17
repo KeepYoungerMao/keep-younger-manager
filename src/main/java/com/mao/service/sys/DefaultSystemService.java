@@ -5,7 +5,7 @@ import com.mao.entity.sys.Menu;
 import com.mao.entity.sys.Permission;
 import com.mao.entity.sys.SimpleUser;
 import com.mao.entity.sys.User;
-import com.mao.mapper.response.ResponseData;
+import com.mao.entity.response.ResponseData;
 import com.mao.mapper.sys.RolePermissionMapper;
 import com.mao.mapper.sys.UserMapper;
 import com.mao.service.BaseService;

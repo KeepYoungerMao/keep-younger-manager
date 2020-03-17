@@ -54,6 +54,30 @@
         </if>
     </select>
 
+    <!-- search book by id -->
+    <select id="getBookById" parameterType="java.lang.Long"
+            resultType="com.mao.entity.data.book.Book">
+        SELECT `id`,`name`,`auth`,`image`,`s_image`,`type`,`type_id`,
+        `dynasty`,`dynasty_id`,`count`,`free`,`off_sale`,`update`,`delete`
+        FROM tt_book WHERE `id` = #{id}
+    </select>
+
+    <!-- update book -->
+    <update id="updateBook" parameterType="com.mao.entity.data.book.Book">
+        UPDATE tt_book SET `name` = #{name},`auth` = #{auth},`image` = #{image},
+        `s_image` = #{s_image},`type` = #{type},`type_id` = #{type_id},
+        `dynasty` = #{dynasty},`dynasty_id` = #{dynasty_id},`free` = #{free},
+        `off_sale` = #{off_sale},`update` = #{update} WHERE `id` = #{id}
+    </update>
+
+    <!-- save book -->
+    <insert id="saveBook" parameterType="com.mao.entity.data.book.Book">
+        INSERT INTO tt_book(`id`,`name`,`auth`,`image`,`s_image`,`type`,
+        `type_id`,`dynasty`,`dynasty_id`,`free`,`off_sale`,`update`)
+        VALUE(#{id},#{name},#{auth},#{image},#{s_image},#{type},#{type_id},
+        #{dynasty},#{dynasty_id},#{free},#{off_sale},#{update})
+    </insert>
+
     <!-- search book chapter list -->
     <select id="getBookChapters" parameterType="java.lang.Long"
             resultType="com.mao.entity.data.book.BookChapter">

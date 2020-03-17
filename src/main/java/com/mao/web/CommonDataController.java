@@ -1,6 +1,6 @@
 package com.mao.web;
 
-import com.mao.mapper.response.ResponseData;
+import com.mao.entity.response.ResponseData;
 import com.mao.service.sys.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

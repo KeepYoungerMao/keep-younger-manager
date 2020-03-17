@@ -2,7 +2,7 @@ package com.mao.service.sys;
 
 import com.mao.entity.sys.Menu;
 import com.mao.entity.sys.User;
-import com.mao.mapper.response.ResponseData;
+import com.mao.entity.response.ResponseData;
 
 import java.util.List;
 

@@ -32,6 +32,25 @@ public interface BookMapper {
     Long getBookTotalPage(BookParam bookParam);
 
     /**
+     * search book by id
+     * @param id id
+     * @return book data
+     */
+    Book getBookById(@Param("id") Long id);
+
+    /**
+     * update book data
+     * @param book book data
+     */
+    void updateBook(Book book);
+
+    /**
+     * save book data
+     * @param book book data
+     */
+    void saveBook(Book book);
+
+    /**
      * search book chapter data list
      * @param id book chapter id
      * @return book chapter data list

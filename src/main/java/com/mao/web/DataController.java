@@ -1,5 +1,6 @@
 package com.mao.web;
 
+import com.mao.entity.ViewType;
 import com.mao.entity.data.bjx.Bjx;
 import com.mao.entity.data.bjx.BjxParam;
 import com.mao.entity.data.book.Book;
@@ -13,7 +14,8 @@ import com.mao.service.data.buddhist.BuddhistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -63,11 +65,9 @@ public class DataController {
      * @return 古籍详情，古籍详情参数
      */
     @RequestMapping("book/{id}")
-    public String getBookSrc(@PathVariable(name = "id", required = false) Long id, Book book,
-                             String type, Model model){
-        Book changeBook = bookService.changeBook(id, book, type);
-        model.addAttribute("changeType", type);
-        model.addAttribute("book",changeBook);
+    public String getBookSrc(@PathVariable(name = "id") Long id, Book book,
+                             ViewType type, Model model){
+        bookService.changeBook(id,book,type,model);
         return "data/book/bookSrc";
     }
 

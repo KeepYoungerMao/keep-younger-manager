@@ -10,10 +10,12 @@
     <link rel="stylesheet" th:href="@{/static/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
 <script th:inline="javascript">
-    let bookParam = [[${bookParam}]];
-    let books = [[${books}]];
-    console.log(bookParam);
-    console.log(books);
+    let changeType = [[${changeType}]];
+    let book = [[${book}]];
+    let changeMsg = [[${changeMsg}]];
+    console.log(changeType);
+    console.log(book);
+    console.log(changeMsg);
 </script>
 <body>
 <div th:replace="model/model::header"></div>
@@ -60,7 +62,6 @@
 </body>
 <script th:src="@{/static/js/jquery-2.0.3.js}"></script>
 <script th:src="@{/static/js/pop.js}"></script>
-<script th:src="@{/static/js/page.js}"></script>
 <script th:src="@{/static/js/global-keep-younger.ui.js}"></script>
-<script th:src="@{/static/js/data/book.js}"></script>
+<script th:src="@{/static/js/data/book-src.js}"></script>
 </html>

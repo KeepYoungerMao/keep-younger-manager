@@ -1,8 +1,8 @@
 package com.mao.service;
 
 import com.mao.entity.Page;
-import com.mao.mapper.response.ResponseData;
-import com.mao.mapper.response.ResponseEnum;
+import com.mao.entity.response.ResponseData;
+import com.mao.entity.response.ResponseEnum;
 import org.springframework.stereotype.Service;
 
 /**

@@ -41,6 +41,15 @@ public class SU {
     }
 
     /**
+     * 判断数值是否 <= 0
+     * @param id 数值
+     * @return true / false
+     */
+    public static boolean isZero(Long id){
+        return null == id || id <= 0;
+    }
+
+    /**
      * Long型相除的向上取整
      * @param z 分子
      * @param m 分母
