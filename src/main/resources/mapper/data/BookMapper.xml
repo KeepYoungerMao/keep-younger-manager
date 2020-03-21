@@ -57,7 +57,7 @@
     <!-- search book by id -->
     <select id="getBookById" parameterType="java.lang.Long"
             resultType="com.mao.entity.data.book.Book">
-        SELECT `id`,`name`,`auth`,`image`,`s_image`,`type`,`type_id`,
+        SELECT `id`,`name`,`auth`,`image`,`s_image`,`intro`,`type`,`type_id`,
         `dynasty`,`dynasty_id`,`count`,`free`,`off_sale`,`update`,`delete`
         FROM tt_book WHERE `id` = #{id}
     </select>

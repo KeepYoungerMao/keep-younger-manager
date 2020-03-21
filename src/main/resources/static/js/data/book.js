@@ -210,7 +210,8 @@ function loadBookDataDo(data,table) {
                 '                <td>'+books[i].dynasty+'</td>' +
                 '                <td>'+f+o+'</td>' +
                 '                <td>' +
-                '                    <a class="ky-icon-green" href="#">详情</a>' +
+                '                    <a class="ky-icon-green" href="/data/book/'+books[i].id+'?type=SHOW">详情</a>' +
+                '                    <a class="ky-icon-orange" href="/data/book/chapter/'+books[i].id+'">章节</a>' +
                 '                    <a class="ky-icon-red" href="#">删除</a>' +
                 '                </td>' +
                 '            </tr>';

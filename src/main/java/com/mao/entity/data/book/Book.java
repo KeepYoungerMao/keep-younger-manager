@@ -15,6 +15,7 @@ public class Book {
     private String auth;            //作者
     private String image;           //图片
     private String s_image;         //小图片
+    private String intro;           //详情
     private String type;            //类型
     private Integer type_id;        //类型id
     private String dynasty;         //朝代
